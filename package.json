@@ -1,0 +1,38 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "FCC project",
+  "main": "index.js",
+  "author": "Manuel MICU",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manu-4216/project/issues"
+  },
+  "homepage": "https://github.com/manu-4216/project#readme",
+  "dependencies": {
+    "axios": "^0.13.1",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.23.1",
+    "html-webpack-plugin": "^2.22.0",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^1.16.5"
+  },
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack -p --config webpack.prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manu-4216/project.git"
+  }
+}

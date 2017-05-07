@@ -1,0 +1,107 @@
+@import '../../common/style/theme';
+
+header {
+	color: $theme-secondary;
+	background: $theme-primary;
+	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+
+/*---------------------------------------------------*/
+/* header > LEFT SIDE                                */
+/*---------------------------------------------------*/
+.header--icon {
+	padding: 0.5em 0.5em 0.5em 1em;
+    width: 2.5rem;
+    height: 2.5rem;
+    vertical-align: middle;
+}
+/* Hide the welcome message on mobile, since less space */
+@media (min-width: 32em) {
+  .header--icon {
+    padding: 0.5em 1em;
+  }
+  header .header--title {
+  	font-size: 1.4rem;
+  }
+  div .header--welcome {
+    opacity: 1;
+  }
+  div input {
+	width: 70vw;
+  }
+
+  div li input {
+	 width: 50vw;
+  }
+}
+
+.header--title {
+	display: inline-block;
+	font-weight: 500;
+	font-size: 1rem;
+	vertical-align: middle;
+}
+
+div .visible {
+	display: block;
+}
+div .hidden {
+	display: none;
+}
+
+/*---------------------------------------------------*/
+/* header > RIGHT SIDE                               */
+/*---------------------------------------------------*/
+.header--right-side {
+	position: absolute;
+	right: 0;
+    top: 1.2em;
+	display: inline-block;
+}
+
+.header--welcome {
+	opacity: 0;
+	transition: opacity 0.4s;
+}
+
+.header--welcome.hidden {
+	opacity: 0;
+}
+
+.header--user-fullname{
+	font-weight: 400;
+	display: none;
+}
+.header--user-fullname {
+	display: inline-block;
+}
+.header--menu {
+	text-decoration: none;
+	padding: 6px;
+	margin: 0;
+	color: $theme-primary2;
+}
+.header--menu:visited {
+	color: $theme-primary2;
+}
+.header--menu:hover {
+	color: $theme-secondary2;
+}
+.header--menu:active {
+	color: $theme-secondary2;
+}
+
+
+.root-container p, .container form {
+	text-align: center;
+	padding: 0;
+}
+
+
+header a ~ p {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	color: #ECEFF1;
+}

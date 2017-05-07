@@ -1,0 +1,15 @@
+@import 'reset';
+@import 'fonts';
+@import '../../common/style/theme';
+
+:root {
+	font-size: 16px;
+}
+
+body {
+  background: $theme-secondary;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
