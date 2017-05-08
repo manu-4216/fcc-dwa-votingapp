@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 
 var GitHubStrategy = require('passport-github').Strategy;
 var User = require('../models/users');

@@ -6,21 +6,32 @@
   "author": "Manuel MICU",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manu-4216/project/issues"
+    "url": "https://github.com/manu-4216/fcc-dwa-votingapp/issues"
   },
-  "homepage": "https://github.com/manu-4216/project#readme",
+  "homepage": "https://github.com/manu-4216/fcc-dwa-votingapp#readme",
   "dependencies": {
     "axios": "^0.13.1",
+    "body-parser": "^1.17.1",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.7",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.11.1",
     "css-loader": "^0.23.1",
     "html-webpack-plugin": "^2.22.0",
     "node-sass": "^3.8.0",
+    "nodemon": "^1.11.0",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.8",
@@ -28,11 +39,12 @@
     "webpack-dev-server": "^1.16.5"
   },
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --open",
+    "start:db": "mongod --dbpath data --nojournal",
     "build": "webpack -p --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manu-4216/project.git"
+    "url": "git+https://github.com/manu-4216/fcc-dwa-votingapp.git"
   }
 }

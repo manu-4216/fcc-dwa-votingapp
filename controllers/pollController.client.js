@@ -1,6 +1,6 @@
 /* global appUrl  */
 
-'use strict';
+//'use strict';
 
 
 /**

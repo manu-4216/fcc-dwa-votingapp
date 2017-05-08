@@ -14,7 +14,8 @@ module.exports = {
     context: path.resolve(__dirname, './src'),
     entry: path.resolve(ROOT_PATH, 'src', 'index.js'),
     output: {
-        path: ROOT_PATH + '/dist',
+        //path: ROOT_PATH + '/dist',
+        path: ROOT_PATH,
         filename: "index_bundle.js"
     },
     resolve: {
