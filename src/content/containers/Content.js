@@ -24,12 +24,13 @@ class PollListContainer extends React.Component {
             throw err
         });
         */
+
     }
 
     render() {
         //return <PollList polls={this.state.polls} />;
         //return <div>{this.state.polls}</div>
-        return <div>CONTENT</div>
+        return <div>LIST OF POLLS</div>
     }
 }
 

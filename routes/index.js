@@ -40,17 +40,31 @@ module.exports = function (app, passport) {
 			//res.sendFile(path + '/server/login0.html');
 			res.sendFile(path + '/login0.html');
 		})
+		.post(passport.authenticate('local'), function(req, res) {
+			console.log('AUTH', req.isAuthenticated());
+		  	console.log('loggin in user');
+		  	console.log(req.body);
+			res.send({ logged: true });
+		    //res.redirect('/');
+		  });
+		});
+
+
+	app.route('/register')
+		.get(function (req, res) {
+			//res.sendFile(path + '/public/login.html');
+			//res.sendFile(path + '/server/login0.html');
+			res.sendFile(path + '/login0.html');
+		})
 		.post(function(req, res, next) {
 		  console.log('registering user');
 		  console.log(req.body);
 		  var newUser = new User({ username: req.body.username });
 		  User.register(newUser, req.body.password, function(err) {
-		    if (err) { console.log('error while user register!', err); return next(err); }
-
-		    console.log('user registered!');
-
-			res.send({ logged: true });
-		    //res.redirect('/');
+			if (err) { console.log('error while user register!', err); return next(err); }
+				console.log('user registered!');
+				res.send({ logged: true });
+			//res.redirect('/');
 		  });
 		});
 
@@ -58,7 +72,7 @@ module.exports = function (app, passport) {
 	app.route('/logout')
 		.get(function (req, res) {
 			req.logout();
-			res.redirect('/login');
+			//res.redirect('/login');
 		});
 
 	app.route('/api/:id')
