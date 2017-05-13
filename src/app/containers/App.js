@@ -32,7 +32,6 @@ class AppContainer extends React.Component {
     componentDidMount() {
         var that = this;
 
-        utils.isLoggedIn.
         userHelpers.isLoggedIn
             .then(function (loggedIn) {
                 console.log(logedIn);
