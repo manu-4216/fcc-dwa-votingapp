@@ -46,8 +46,7 @@ module.exports = function (app, passport) {
 		  	console.log(req.body);
 			res.send({ logged: true });
 		    //res.redirect('/');
-		  });
-		});
+		 });
 
 
 	app.route('/register')

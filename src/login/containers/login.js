@@ -12,7 +12,7 @@ class Login extends React.Component {
     handleLogin(e) {
         e.preventDefault();
 
-        axios.post('/login',  {
+        axios.post('/register',  {
             username: 'manuel' + Math.ceil(Math.random()*1000),
             password: '123'
         })

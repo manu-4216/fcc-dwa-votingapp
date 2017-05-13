@@ -1,42 +1,46 @@
 var React = require('react');
-var App = require('../components/App');
-var axios = require('axios');
+
+var Header = require('header/containers/Header');
+var Content = require('content/containers/Content');
+var Login = require('login/containers/login');
+
+require('../style/main.scss');
+
+var userHelpers = require('common/utils/userHelpers');
+var pollsHelpers = require('common/utils/pollsHelpers');
+
 
 class AppContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading: true,
-            logged: false
+            loggedIn: false
         }
 
         this.login = this.login.bind(this);
+        this.register = this.register.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     login () {
         this.setState({
-            loading: false,
-            logged: true
+            loggedIn: true
         })
     }
 
     componentDidMount() {
-        var path = window.location.pathname;
+        var that = this;
 
-        axios.get('checklogin')
-        .then(function (response) {
-            if (response.logged === 'true') {
-                this.setState({
-                    loading: false,
-                    logged: response
+        utils.isLoggedIn.
+        userHelpers.isLoggedIn
+            .then(function (loggedIn) {
+                console.log(logedIn);
+                that.setState({
+                    loggedIn: logedIn
                 })
-            }
-        })
-        .catch(function (err) {
-            throw err
-        })
-        /*
+            })
+/*
         axios.get('/polls')
         .then(function (response) {
             //console.log(response.data[0]);
@@ -52,10 +56,24 @@ class AppContainer extends React.Component {
 
     render() {
         //return <PollList polls={this.state.polls} />;
-        return  <App loading={this.state.logged}
-                     logged={this.state.logged}
-                     login={this.login}
+        return (
+            <div>
+                <Header
+                    login={this.login}
+                    register={this.register}
+                    logout={this.logout}
+                    loggedIn={this.state.loggedIn}
                 />
+                {
+                    this.state.loggedIn ?
+                    <Content /> :
+                    <Login
+                        login={this.login}
+                        register={this.register}
+                    />
+                }
+            </div>
+        )
     }
 }
 
