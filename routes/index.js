@@ -35,26 +35,13 @@ module.exports = function (app, passport) {
 		})
 
 	app.route('/login')
-		.get(function (req, res) {
-			//res.sendFile(path + '/public/login.html');
-			//res.sendFile(path + '/server/login0.html');
-			res.sendFile(path + '/login0.html');
-		})
 		.post(passport.authenticate('local'), function(req, res) {
-			console.log('AUTH', req.isAuthenticated());
-		  	console.log('loggin in user');
-		  	console.log(req.body);
+			console.log(req.body);
 			res.send({ logged: true });
-		    //res.redirect('/');
 		 });
 
 
 	app.route('/register')
-		.get(function (req, res) {
-			//res.sendFile(path + '/public/login.html');
-			//res.sendFile(path + '/server/login0.html');
-			res.sendFile(path + '/login0.html');
-		})
 		.post(function(req, res, next) {
 		  console.log('registering user');
 		  console.log(req.body);
@@ -63,7 +50,6 @@ module.exports = function (app, passport) {
 			if (err) { console.log('error while user register!', err); return next(err); }
 				console.log('user registered!');
 				res.send({ logged: true });
-			//res.redirect('/');
 		  });
 		});
 
@@ -80,21 +66,6 @@ module.exports = function (app, passport) {
 			res.json(req.user.github);
 		});
 
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
-
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
-			successRedirect: '/',
-			failureRedirect: '/login'
-		}));
-
-	app.route('/api/:id/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
-		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
-
-
 	app.route('/api/:id/polls')
 		//.get(isLoggedIn, pollHandler.getClicks)
 		.post(isLoggedIn, pollHandler.addPoll)
@@ -108,6 +79,5 @@ module.exports = function (app, passport) {
 	app.route('/polls')
 		.get(isLoggedIn, pollHandler.getAllPolls)
 		//.get(pollHandler.getAllPolls)
-
 
 };

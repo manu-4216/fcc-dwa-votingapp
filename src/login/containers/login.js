@@ -14,8 +14,8 @@ class Login extends React.Component {
         e.preventDefault();
 
         axios.post('/register',  {
-            username: 'manuel' + Math.ceil(Math.random()*1000),
-            password: '123'
+            username: this.username.value,
+            password: this.password.value
         })
         .then(function (response) {
             this.props.setLogin(true);
@@ -29,14 +29,18 @@ class Login extends React.Component {
         e.preventDefault();
 
         axios.post('/login',  {
-            username: 'manuel569',
-            password: '123'
+            username: this.username.value,
+            password: this.password.value
         })
         .then(function (response) {
             this.props.setLogin(true);
         }.bind(this))
         .catch(function (err) {
-            throw err
+            if (err.response.status === '401') {
+                console.log('Wrong credentials');
+            } else {
+                throw err
+            }
         })
     }
 
@@ -46,11 +50,11 @@ class Login extends React.Component {
                 <form action="/login" method="post">
                     <div>
                         <label>Username:</label>
-                        <input type="text" name="username"/>
+                        <input type="text" name="username" ref={(input) => { this.username = input }}/>
                     </div>
                     <div>
                         <label>Password:</label>
-                        <input type="password" name="password"/>
+                        <input type="password" name="password" ref={(input) => { this.password = input }}/>
                     </div>
                     <div>
                         <button onClick={this.handleLogin}>Log In</button>

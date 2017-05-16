@@ -31,7 +31,8 @@ app.use('/', express.static(process.cwd() + '/'));
 
 // Middleware for logging all the requests:
 function logger (req, res, next) {
-    console.log(req.method, req.originalUrl)
+    console.log(req.method + ' : ' +  req.originalUrl);
+    console.log('req', req.body);
     next()
 }
 app.use(logger)
