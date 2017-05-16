@@ -57,6 +57,7 @@ class AppContainer extends React.Component {
             <div>
                 <Header
                     setLogin={this.setLogin}
+                    loggedIn={this.state.loggedIn}
                 />
                 {
                     this.state.loggedIn ?

@@ -6,10 +6,11 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
 
-    handleLogin(e) {
+    handleRegister(e) {
         e.preventDefault();
 
         axios.post('/register',  {
