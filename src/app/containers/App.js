@@ -18,25 +18,23 @@ class AppContainer extends React.Component {
             loggedIn: false
         }
 
-        this.login = this.login.bind(this);
-        this.register = this.register.bind(this);
-        this.logout = this.logout.bind(this);
+        this.setLogin = this.setLogin.bind(this);
     }
 
-    login () {
+    setLogin (newLoginState) {
         this.setState({
-            loggedIn: true
+            loggedIn: newLoginState
         })
     }
 
     componentDidMount() {
         var that = this;
 
-        userHelpers.isLoggedIn
+        userHelpers.isLoggedIn()
             .then(function (loggedIn) {
-                console.log(logedIn);
+                console.log(loggedIn);
                 that.setState({
-                    loggedIn: logedIn
+                    loggedIn: loggedIn
                 })
             })
 /*
@@ -58,17 +56,13 @@ class AppContainer extends React.Component {
         return (
             <div>
                 <Header
-                    login={this.login}
-                    register={this.register}
-                    logout={this.logout}
-                    loggedIn={this.state.loggedIn}
+                    setLogin={this.setLogin}
                 />
                 {
                     this.state.loggedIn ?
                     <Content /> :
                     <Login
-                        login={this.login}
-                        register={this.register}
+                        setLogin={this.setLogin}
                     />
                 }
             </div>

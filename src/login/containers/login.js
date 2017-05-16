@@ -17,7 +17,22 @@ class Login extends React.Component {
             password: '123'
         })
         .then(function (response) {
-            this.props.login();
+            this.props.setLogin(true);
+        }.bind(this))
+        .catch(function (err) {
+            throw err
+        })
+    }
+
+    handleLogin(e) {
+        e.preventDefault();
+
+        axios.post('/login',  {
+            username: 'manuel569',
+            password: '123'
+        })
+        .then(function (response) {
+            this.props.setLogin(true);
         }.bind(this))
         .catch(function (err) {
             throw err
@@ -37,7 +52,8 @@ class Login extends React.Component {
                         <input type="password" name="password"/>
                     </div>
                     <div>
-                        <input type="submit" value="Log In" onClick={this.handleLogin}/>
+                        <button onClick={this.handleLogin}>Log In</button>
+                        <button onClick={this.handleRegister}>Register</button>
                     </div>
                 </form>
             </div>
