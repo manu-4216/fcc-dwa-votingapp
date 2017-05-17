@@ -66,7 +66,7 @@ module.exports = function (app, passport) {
 			res.json(req.user.github);
 		});
 
-	app.route('/api/:id/polls')
+	app.route('/api/addpoll')
 		//.get(isLoggedIn, pollHandler.getClicks)
 		.post(isLoggedIn, pollHandler.addPoll)
 		//.delete(isLoggedIn, pollHandler.resetClicks);

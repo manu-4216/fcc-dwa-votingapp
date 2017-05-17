@@ -13,7 +13,7 @@ function PollHandler () {
     */
 	this.addPoll = function (req, res) {
 	    var newPoll = new Polls({
-	    	author: req.user.github.username,
+	    	author: req.user.username,
 	        question: req.body.question,
 	        options: req.body.options.filter(item => (item !== ''))
 	    });
@@ -73,7 +73,7 @@ function PollHandler () {
     */
 	this.getAllPolls = function (req, res) {
         console.log('user', req.user);
-		Polls.find({ author: req.user.github.username })
+		Polls.find({ author: req.user.username })
         .then(function (result) {
             console.log('Inside getAllPolls')
         	res.send(result)

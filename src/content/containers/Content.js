@@ -2,6 +2,7 @@ var React = require('react');
 //var PollList = require('../components/Content0');
 var axios = require('axios');
 var FloatingActionButton = require('fab/containers//FloatingActionButton');
+var AddPollForm = require('add-poll-form/containers//AddPollForm');
 
 class PollListContainer extends React.Component {
 
@@ -17,6 +18,12 @@ class PollListContainer extends React.Component {
     displayAddPollForm () {
         this.setState({
             addPollOpen: true
+        })
+    }
+
+    closeAddPollForm () {
+        this.setState({
+            addPollOpen: false
         })
     }
 
@@ -45,9 +52,15 @@ class PollListContainer extends React.Component {
                 <FloatingActionButton
                     handleClick={this.displayAddPollForm}
                 />
-                {this.state.addPollOpen ?
-                    <div>OPENED FORM</div> :
-                    <div>CLOSED FORM</div>
+                {!this.state.addPollOpen ?
+                    <div>ADD FORM CLOSED</div> :
+                    <div>
+                        ADD FORM OPEN
+                        <div className='backdrop'></div>
+                        <AddPollForm
+                            handleClick={this.closeAddPollForm}
+                        />
+                    </div>
                 }
             </div>
         )
