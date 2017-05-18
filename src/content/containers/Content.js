@@ -56,7 +56,6 @@ class PollListContainer extends React.Component {
                     <div>ADD FORM CLOSED</div> :
                     <div>
                         ADD FORM OPEN
-                        <div className='backdrop'></div>
                         <AddPollForm
                             handleClick={this.closeAddPollForm}
                         />

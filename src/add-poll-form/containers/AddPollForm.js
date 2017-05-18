@@ -48,36 +48,40 @@ class AddPollForm extends React.Component {
 
     render() {
         return (
-            <div className="container container--create-poll">
-				<form className="poll-form">
-					<label htmlFor='question'>Poll question:</label>
-					<input type='text' className='poll-question' id='question' name='question' autocomplete='off'></input>
+            <div>
+                <div className='backdrop'></div>
+                
+                <div className="container container--create-poll">
+                    <form className="poll-form">
+                        <label htmlFor='question'>Poll question:</label>
+                        <input type='text' className='poll-question' id='question' name='question' autocomplete='off'></input>
 
-					<label>Options:</label>
-					<ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
-						<li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
-							<input type="text" className="poll-option" name='options'></input>
-						</li>
-						<li className="poll-option-item">
-							<input type="text" className="poll-option" name='options'></input>
-						</li>
-					</ul>
+                        <label>Options:</label>
+                        <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
+                            <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
+                                <input type="text" className="poll-option" name='options'></input>
+                            </li>
+                            <li className="poll-option-item">
+                                <input type="text" className="poll-option" name='options'></input>
+                            </li>
+                        </ul>
 
-				</form>
+                    </form>
 
-				<button className='btn-add-option' onClick={this.addOption}>
-                    Add option
-                </button>
+                    <button className='btn-add-option' onClick={this.addOption}>
+                        Add option
+                    </button>
 
-				<p className='poll-error-msg hidden'></p>
+                    <p className='poll-error-msg hidden'></p>
 
-				<button className='btn-submit-poll' onClick={this.submitPoll}>
-                    Submit
-                </button>
+                    <button className='btn-submit-poll' onClick={this.submitPoll}>
+                        Submit
+                    </button>
 
-				<p className='new-poll-info'></p>
+                    <p className='new-poll-info'></p>
+                </div>
+            </div>
 
-			</div>
         )
     }
 }

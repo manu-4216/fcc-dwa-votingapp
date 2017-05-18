@@ -51,25 +51,6 @@
    100%  {transform: scale(1.00)}
 }
 
-
-.backdrop__active {
-  opacity: .6 !important;
-}
-.backdrop {
-  pointer-events: none;
-  position: absolute;
-  display: inline-block;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .35s;
-    transition-property: opacity;
-}
-
 .add-button--text {
   opacity: 1;
   cursor: default;
