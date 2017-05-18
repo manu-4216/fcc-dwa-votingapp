@@ -2,6 +2,7 @@
 @import 'fonts';
 @import '../../common/style/theme';
 
+
 :root {
 	font-size: 16px;
 }
@@ -12,4 +13,24 @@ body {
 
 body {
 	font-family: 'Roboto', sans-serif;
+}
+
+form {
+	text-align: center;
+}
+
+.center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+button {
+	margin: 1em;
+}
+
+input[type='text'], input[type='password']  {
+	border: 1px solid black;
+	border-radius: 5px;
 }

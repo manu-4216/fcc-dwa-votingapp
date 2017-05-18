@@ -1,6 +1,7 @@
 var React = require('react');
 var axios = require('axios');
-//require('../main.scss');
+
+require('../style/main.scss');
 
 class Login extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class Login extends React.Component {
     render() {
         return  (
             <div>
-                <form action="/login" method="post">
+                <form className="login-form center" action="/login" method="post">
                     <div>
                         <label>Username:</label>
                         <input type="text" name="username" ref={(input) => { this.username = input }}/>
