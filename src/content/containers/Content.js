@@ -57,7 +57,7 @@ class PollListContainer extends React.Component {
                     <div>
                         ADD FORM OPEN
                         <AddPollForm
-                            handleClick={this.closeAddPollForm}
+                            handleClick={this.closeAddPollForm.bind(this)}
                         />
                     </div>
                 }

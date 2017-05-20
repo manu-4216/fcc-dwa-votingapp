@@ -16,7 +16,6 @@ class AddPollForm extends React.Component {
 
         var newOptionItem = this.optionItem.cloneNode(true);
         debugger;
-        newOptionItem.setAttribute('key', this.pollOptionList.children.length + 1);
         newOptionItem.querySelector('input').value = '';
         this.pollOptionList.appendChild(newOptionItem);
 
@@ -57,27 +56,28 @@ class AddPollForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div class='center'>
                 <div className='backdrop'></div>
 
-                <div className="container container--create-poll">
+                <div className="container center">
+                    <button className='close-button' onClick={this.props.handleClick}>x</button>
                     <form className="poll-form">
                         <label htmlFor='question'>Poll question:</label>
                         <input type='text'
                             className='poll-question'
                             id='question'
                             name='question'
-                            autocomplete='off'
+                            autoComplete='off'
                             ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
                         </input>
 
                         <label>Options:</label>
                         <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
                             <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
-                                <input type="text" className="poll-option" name='options' key='1'></input>
+                                <input type="text" className="poll-option" name='options' autoComplete="off"></input>
                             </li>
                             <li className="poll-option-item">
-                                <input type="text" className="poll-option" name='options' key='2'></input>
+                                <input type="text" className="poll-option" name='options' autoComplete="off"></input>
                             </li>
                         </ul>
 
