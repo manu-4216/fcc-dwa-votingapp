@@ -1,6 +1,7 @@
 var React = require('react');
 //var PollList = require('../components/Content0');
 var axios = require('axios');
+var PollList = require('poll-list/containers/PollList');
 var FloatingActionButton = require('fab/containers//FloatingActionButton');
 var AddPollForm = require('add-poll-form/containers//AddPollForm');
 
@@ -44,18 +45,15 @@ class PollListContainer extends React.Component {
     }
 
     render() {
-        //return <PollList polls={this.state.polls} />;
-        //return <div>{this.state.polls}</div>
         return (
             <div>
-                <div>LIST OF POLLS</div>
-                <FloatingActionButton
-                    handleClick={this.displayAddPollForm}
-                />
+                <PollList/>
+
                 {!this.state.addPollOpen ?
-                    <div>ADD FORM CLOSED</div> :
+                    <FloatingActionButton
+                        handleClick={this.displayAddPollForm}
+                    /> :
                     <div>
-                        ADD FORM OPEN
                         <AddPollForm
                             handleClick={this.closeAddPollForm.bind(this)}
                         />

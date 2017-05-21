@@ -1,0 +1,26 @@
+
+.polls {
+    list-style-type: none;
+    margin: 2rem 1rem;
+    padding: 0;
+}
+
+.polls-item {
+    margin: 0.5em auto;
+    padding: 1em 2em;
+    border: none;
+    text-align: left;
+    max-width: 40rem; /* avoid having a text too wide */
+    background-color: #f9f6f6;
+    letter-spacing: 0.25em;
+    box-shadow: -2px 0px 5px grey;
+    -webkit-transition: all, 400ms, ease-out;
+    transition: all, 400ms, ease-out;
+}
+
+.polls-item:hover {
+    -webkit-transform: scale(1.02);
+    transform: scale(1.02);
+    box-shadow: -2px 0px 12px grey;
+    background-color: #e5e1e1;
+}
