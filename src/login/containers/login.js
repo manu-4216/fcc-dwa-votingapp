@@ -49,11 +49,11 @@ class Login extends React.Component {
         return  (
             <div>
                 <form className="login-form center" action="/login" method="post">
-                    <div>
+                    <div className="login-username">
                         <label>Username:</label>
                         <input type="text" name="username" autoComplete="off" ref={(input) => { this.username = input }}/>
                     </div>
-                    <div>
+                    <div className="login-password">
                         <label>Password:</label>
                         <input type="password" name="password" autoComplete="off" ref={(input) => { this.password = input }}/>
                     </div>

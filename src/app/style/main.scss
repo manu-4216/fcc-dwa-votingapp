@@ -27,7 +27,7 @@ form {
 }
 
 button {
-	margin: 1em;
+	margin: 0.5em;
 	border: 1px solid black;
     border-radius: 0.3em;
     padding: 0.5em;
@@ -36,7 +36,8 @@ button {
 	outline: none;
 }
 
-input[type='text'], input[type='password']  {
+input[type='text'], input[type='password'], textarea  {
+	display: block;
 	border: 1px solid black;
 	border-radius: 5px;
 	outline: none;

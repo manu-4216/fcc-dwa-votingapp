@@ -24,30 +24,35 @@ class AddPollForm extends React.Component {
     }
 
     submitPoll(event) {
+        var arrayOptions = [],
+            newPoll;
+
         event.preventDefault();
-        var arrayOptions = [];
 
         for (var option of this.pollOptionList.children) {
             arrayOptions.push(option.querySelector('input').value);
         }
 
-        axios.post('/api/addpoll', {
+        newPoll = {
             question: this.pollQuestion.value,
             options: arrayOptions
-      })
-      .then(function (response) {
-          console.log('Submit response', response.data);
-         //var newPollLink = response.data;
+        };
+        this.props.addPoll(newPoll);
 
-         //cleanForm();
-         //cleanErrors();
-         //pollInfo.innerHTML = 'Congratulations, your new poll has been created. <br> Link: ' + '<a href="' + newPollLink +'" target="_blank">' + newPollLink + '</a>';
-      })
-      .catch(function (err) {
-          console.log('Submit error ', err)
-         //displayErrors(err);
-         //cleanPollInfo()
-      });
+        axios.post('/api/addpoll', newPoll)
+        .then(function (response) {
+            console.log('Submit response', response.data);
+            //var newPollLink = response.data;
+
+            //cleanForm();
+            //cleanErrors();
+            //pollInfo.innerHTML = 'Congratulations, your new poll has been created. <br> Link: ' + '<a href="' + newPollLink +'" target="_blank">' + newPollLink + '</a>';
+        })
+        .catch(function (err) {
+            console.log('Submit error ', err)
+            //displayErrors(err);
+            //cleanPollInfo()
+        });
     }
 
     componentDidMount() {
@@ -63,13 +68,14 @@ class AddPollForm extends React.Component {
                     <button className='close-button' onClick={this.props.handleClick}>x</button>
                     <form className="poll-form">
                         <label htmlFor='question'>Poll question:</label>
-                        <input type='text'
+                        <textarea
                             className='poll-question'
+                            rows='2'
                             id='question'
                             name='question'
                             autoComplete='off'
                             ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
-                        </input>
+                        </textarea>
 
                         <label>Options:</label>
                         <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>

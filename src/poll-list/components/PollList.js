@@ -25,8 +25,8 @@ const PollList = props =>
             <li className="polls-item" key={index}>
                 <div> { poll.question } </div>
                 <div>
-                    <span> { moment(poll.created).calendar(new Date(), formats) } </span>
-                    <span> { poll.votes } </span>
+                    <span className="poll-date"> { moment(poll.created).calendar(new Date(), formats) } </span>
+                    <span className="poll-votes"> votes: {0} </span>
                 </div>
             </li>
         ))

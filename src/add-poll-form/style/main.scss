@@ -3,12 +3,18 @@
     box-sizing: border-box;
     padding: 1em;
 
-    width: calc(100vw - 14vmin);
+    width: calc(100vw - 18vmin);
     background: rgb(255, 252, 252);
     border-radius: 0.4rem;
     margin-bottom: 1em;
     box-sizing: content-box;
     box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 32em) {
+    .container {
+        width: 25em;
+    }
 }
 
 .poll-error-msg {
@@ -17,31 +23,28 @@
 	background: #fbe4e4;
 }
 
-ul {
+.poll-form ul {
 	list-style: none;
 	text-align: center;
 	padding: 0;
 	margin: 5px;
 }
 
-form label {
+.poll-form label {
     display: block;
     margin-top: 1em;
 }
 
-form {
+.poll-form {
     margin-bottom: 1em;
 }
 
-input {
-	width: 70vw;
-    margin: 0.2em;
+.poll-form input, .poll-form textarea {
+	width: 90%;
+    margin: 0.6em auto;
    	padding: 0.4em;
 }
 
-li input {
-	width: 70vw;
-}
 
 /*******************************/
 .backdrop {
@@ -66,4 +69,5 @@ li input {
     width: 2em;
     height: 2em;
     line-height: 0;
+    cursor: pointer;
 }

@@ -14,6 +14,8 @@ class PollListContainer extends React.Component {
             addPollOpen: false
         }
         this.displayAddPollForm = this.displayAddPollForm.bind(this);
+        //this.displayAddPollForm = this.displayAddPollForm.bind(this);
+        //this.displayAddPollForm = this.displayAddPollForm.bind(this);
     }
 
     displayAddPollForm () {
@@ -28,11 +30,21 @@ class PollListContainer extends React.Component {
         })
     }
 
+    handleAddPoll (newPoll) {
+        this.setState({
+            polls: this.state.polls.concat({
+                question: newPoll.question,
+                options: newPoll.options,
+                votes: 0
+            })
+        })
+    }
+
     componentDidMount() {
-        /*
         axios.get('/polls')
         .then(function (response) {
-            //console.log(response.data[0]);
+            debugger;
+            console.log(response.data[0]);
             this.setState({
                 polls: response.data
             })
@@ -40,14 +52,12 @@ class PollListContainer extends React.Component {
         .catch(function (err) {
             throw err
         });
-        */
-
     }
 
     render() {
         return (
             <div>
-                <PollList/>
+                <PollList polls={this.state.polls} />
 
                 {!this.state.addPollOpen ?
                     <FloatingActionButton
@@ -56,6 +66,7 @@ class PollListContainer extends React.Component {
                     <div>
                         <AddPollForm
                             handleClick={this.closeAddPollForm.bind(this)}
+                            addPoll={this.handleAddPoll.bind(this)}
                         />
                     </div>
                 }

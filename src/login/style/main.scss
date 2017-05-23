@@ -1,6 +1,29 @@
 .login-form {
+    width: 80vw;
     background: #ffffff;
     padding: 1em;
     border: 1px solid black;
     border-radius: 5px;
+}
+
+@media (min-width: 32em) {
+    .login-form {
+        width: 25em;
+    }
+}
+
+.login-username {
+    margin-bottom: 1em;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 0.3em;
+}
+
+.login-form input {
+    padding: 0.4em;
+    display: block;
+    margin: 0.3em auto;
+    width: 85%;
 }

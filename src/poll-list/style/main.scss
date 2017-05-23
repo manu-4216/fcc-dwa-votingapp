@@ -7,7 +7,7 @@
 
 .polls-item {
     margin: 0.5em auto;
-    padding: 1em 2em;
+    padding: 1em 1em;
     border: none;
     text-align: left;
     max-width: 40rem; /* avoid having a text too wide */
@@ -23,4 +23,8 @@
     transform: scale(1.02);
     box-shadow: -2px 0px 12px grey;
     background-color: #e5e1e1;
+}
+
+.poll-date, .poll-votes {
+    font-size: 80%;
 }
