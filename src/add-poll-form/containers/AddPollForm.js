@@ -25,7 +25,7 @@ class AddPollForm extends React.Component {
 
     submitPoll(event) {
         var arrayOptions = [],
-            newPoll;
+        newPoll;
 
         event.preventDefault();
 
@@ -65,41 +65,44 @@ class AddPollForm extends React.Component {
                 <div className='backdrop'></div>
 
                 <div className="container center">
-                    <button className='close-button' onClick={this.props.handleClick}>x</button>
-                    <form className="poll-form">
-                        <label htmlFor='question'>Poll question:</label>
-                        <textarea
-                            className='poll-question'
-                            rows='2'
-                            id='question'
-                            name='question'
-                            autoComplete='off'
-                            ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
-                        </textarea>
+                    <div className="scrollable-content">
+                        <button className='close-button' onClick={this.props.handleClick}>x</button>
+                        <form className="poll-form">
+                            <label htmlFor='question'>Poll question:</label>
+                            <textarea
+                                className='poll-question'
+                                rows='2'
+                                id='question'
+                                name='question'
+                                autoComplete='off'
+                                ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
+                            </textarea>
 
-                        <label>Options:</label>
-                        <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
-                            <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
-                                <input type="text" className="poll-option" name='options' autoComplete="off"></input>
-                            </li>
-                            <li className="poll-option-item">
-                                <input type="text" className="poll-option" name='options' autoComplete="off"></input>
-                            </li>
-                        </ul>
+                            <label>Options:</label>
+                            <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
+                                <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
+                                    <input type="text" className="poll-option" name='options' autoComplete="off"></input>
+                                </li>
+                                <li className="poll-option-item">
+                                    <input type="text" className="poll-option" name='options' autoComplete="off"></input>
+                                </li>
+                            </ul>
 
-                    </form>
+                        </form>
 
-                    <button className='btn-add-option' onClick={this.addOption}>
-                        Add option
-                    </button>
+                        <button className='btn-add-option' onClick={this.addOption}>
+                            Add option
+                        </button>
 
-                    <p className='poll-error-msg hidden'></p>
+                        <p className='poll-error-msg hidden'></p>
 
-                    <button className='btn-submit-poll' onClick={this.submitPoll}>
-                        Submit
-                    </button>
+                        <button className='btn-submit-poll' onClick={this.submitPoll}>
+                            Submit
+                        </button>
 
-                    <p className='new-poll-info'></p>
+                        <p className='new-poll-info'></p>
+
+                    </div>
                 </div>
             </div>
 

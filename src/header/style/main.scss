@@ -1,6 +1,10 @@
 @import '../../common/style/theme';
 
 header {
+	position: fixed;
+	top: 0;
+	z-index: 2;
+	width: 100%;
 	color: $theme-secondary;
 	background: $theme-primary;
 	box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
