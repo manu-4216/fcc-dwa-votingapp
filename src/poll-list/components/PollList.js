@@ -19,14 +19,14 @@ const PollList = props =>
     {
         props.polls.length === 0 ?
 
-        <div className="polls-item">Create your first poll with the '+' button bellow</div> :
+        <div className="polls-item">Create your first poll with the '+' button below</div> :
 
         props.polls.map((poll, index) => (
             <li className="polls-item" key={index}>
-                <div> { poll.question } </div>
+                <div className="poll-question"> { poll.question } </div>
                 <div>
-                    <span className="poll-date"> { moment(poll.created).calendar(new Date(), formats) } </span>
-                    <span className="poll-votes"> votes: {0} </span>
+                    <span className="poll-date"> Created: { moment(poll.created).calendar(new Date(), formats) } </span>
+                    <span className="poll-votes"> Votes: {0} </span>
                 </div>
             </li>
         ))

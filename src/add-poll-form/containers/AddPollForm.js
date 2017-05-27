@@ -7,6 +7,9 @@ class AddPollForm extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            newPollLink: ''
+        };
         this.addOption = this.addOption.bind(this);
         this.submitPoll = this.submitPoll.bind(this);
     }
@@ -18,9 +21,10 @@ class AddPollForm extends React.Component {
         debugger;
         newOptionItem.querySelector('input').value = '';
         this.pollOptionList.appendChild(newOptionItem);
+    }
 
-        //var newOptionBody = newOptionItem.querySelector('.poll-option');
-        //newOptionBody.value = '';
+    localValidation(poll) {
+        return true;
     }
 
     submitPoll(event) {
@@ -39,20 +43,30 @@ class AddPollForm extends React.Component {
         };
         this.props.addPoll(newPoll);
 
-        axios.post('/api/addpoll', newPoll)
-        .then(function (response) {
-            console.log('Submit response', response.data);
-            //var newPollLink = response.data;
+        var isNewPollValid = this.localValidation(newPoll);
+        var that = this;
 
-            //cleanForm();
-            //cleanErrors();
-            //pollInfo.innerHTML = 'Congratulations, your new poll has been created. <br> Link: ' + '<a href="' + newPollLink +'" target="_blank">' + newPollLink + '</a>';
-        })
-        .catch(function (err) {
-            console.log('Submit error ', err)
-            //displayErrors(err);
-            //cleanPollInfo()
-        });
+        if (isNewPollValid) {
+            axios.post('/api/addpoll', newPoll)
+            .then(function (response) {
+                console.log('Submit response', response.data);
+
+                that.state.newPollLink = response.data;
+                that.forceUpdate();
+
+                //cleanForm();
+                //cleanErrors();
+                //errorMsg.innerHTML = 'Congratulations, your new poll has been created. <br> Link: ' + '<a href="' + newPollLink +'" target="_blank">' + newPollLink + '</a>';
+            })
+            .catch(function (err) {
+                console.log('Submit error ', err)
+                //displayErrors(err);
+                //cleanPollInfo()
+            });
+        } else {
+            //this.errorMsg).classList.remove('hidden');
+            console.log(this.errorMsg);
+        }
     }
 
     componentDidMount() {
@@ -64,43 +78,48 @@ class AddPollForm extends React.Component {
             <div class='center'>
                 <div className='backdrop'></div>
 
-                <div className="container center">
+                <div className="add-poll-container center">
                     <div className="scrollable-content">
                         <button className='close-button' onClick={this.props.handleClick}>x</button>
-                        <form className="poll-form">
-                            <label htmlFor='question'>Poll question:</label>
-                            <textarea
-                                className='poll-question'
-                                rows='2'
-                                id='question'
-                                name='question'
-                                autoComplete='off'
-                                ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
-                            </textarea>
+                        {this.state.newPollLink ?
+                            <NewPollInfo newPollLink={this.state.newPollLink}/> :
+                            <div>
+                                <form className="poll-form">
+                                    <label htmlFor='question'>Poll question:</label>
+                                    <textarea
+                                        className='poll-question'
+                                        rows='2'
+                                        id='question'
+                                        name='question'
+                                        autoComplete='off'
+                                        ref={(pollQuestion) => { this.pollQuestion = pollQuestion }} >
+                                    </textarea>
 
-                            <label>Options:</label>
-                            <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
-                                <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
-                                    <input type="text" className="poll-option" name='options' autoComplete="off"></input>
-                                </li>
-                                <li className="poll-option-item">
-                                    <input type="text" className="poll-option" name='options' autoComplete="off"></input>
-                                </li>
-                            </ul>
+                                    <label>Options:</label>
+                                    <ul className='poll-option-list' ref={(list) => { this.pollOptionList = list }}>
+                                        <li className="poll-option-item"  ref={(optionItem) => { this.optionItem = optionItem }}>
+                                            <input type="text" className="poll-option" name='options' autoComplete="off"></input>
+                                        </li>
+                                        <li className="poll-option-item">
+                                            <input type="text" className="poll-option" name='options' autoComplete="off"></input>
+                                        </li>
+                                    </ul>
 
-                        </form>
+                                </form>
 
-                        <button className='btn-add-option' onClick={this.addOption}>
-                            Add option
-                        </button>
+                                <p className='poll-error-msg hidden' ref={(errorMsg) => { this.errorMsg = errorMsg }}></p>
 
-                        <p className='poll-error-msg hidden'></p>
+                                <button className='btn-add-option' onClick={this.addOption}>
+                                    Add option
+                                </button>
 
-                        <button className='btn-submit-poll' onClick={this.submitPoll}>
-                            Submit
-                        </button>
+                                <button className='btn-submit-poll' onClick={this.submitPoll}>
+                                    Submit
+                                </button>
 
-                        <p className='new-poll-info'></p>
+                                <p className='new-poll-info'></p>
+                            </div>
+                        }
 
                     </div>
                 </div>
@@ -111,3 +130,12 @@ class AddPollForm extends React.Component {
 }
 
 module.exports = AddPollForm
+
+
+const NewPollInfo = props =>
+
+<div className="new-poll-info">
+    <div className="new-poll-title">Congratulations, your new poll has been created.</div>
+    <div> Link:</div>
+    <a className="new-poll-link" href={props.newPollLink} target="_blank">{props.newPollLink}</a>
+</div>

@@ -1,6 +1,6 @@
 @import '../../common/style/theme';
 
-.container {
+.add-poll-container {
 	position: fixed !important;
 	text-align: center;
     box-sizing: border-box;
@@ -15,15 +15,14 @@
 }
 
 .scrollable-content {
-	max-height: 60vh;
+	max-height: 52vh;
 	overflow-y: auto;
-	ackground: rgba(246, 246, 246, 0.34);
 	box-shadow: 0 0 1px rgba(34, 32, 32, 0.46);
 	border-radius: .2rem;
 }
 
 @media (min-width: 32em) {
-    .container {
+    .add-poll-container {
         width: 25em;
     }
 }
@@ -38,7 +37,6 @@
 	list-style: none;
 	text-align: center;
 	padding: 0;
-	margin: 5px;
 }
 
 .poll-form label {
@@ -47,7 +45,7 @@
 }
 
 .poll-form {
-    margin-bottom: 1em;
+    margin-bottom: 0.4em;
 }
 
 .poll-form input, .poll-form textarea {
@@ -80,7 +78,7 @@
 .close-button {
 	position: absolute;
 	top: 0.2em;
-	right: 0;
+	right: -0.1em;
 	cursor: pointer;
 	margin: 0;
 	background: none;
@@ -91,6 +89,18 @@
 	font-size: 110%;
 }
 
-.form-button:hover {
+.btn-submit-poll:hover, .btn-add-option:hover {
 	background: $theme-primary2;
+}
+
+.new-poll-info div {
+	margin: 0.5em;
+	font-weight: 600;
+}
+
+.new-poll-link {
+	overflow-wrap: break-word;
+	font-size: 90%;
+	display: block;
+	margin: 0.5em;
 }

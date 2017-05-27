@@ -7,12 +7,11 @@
 
 .polls-item {
     margin: 0.5em auto;
-    padding: 1em 1em;
+    padding: 0.6em 1em;
     border: none;
     text-align: left;
     max-width: 40rem; /* avoid having a text too wide */
     background-color: #f9f6f6;
-    letter-spacing: 0.25em;
     box-shadow: -2px 0px 5px grey;
     -webkit-transition: all, 300ms, ease-out;
     transition: all, 300ms, ease-out;
@@ -25,6 +24,15 @@
     background-color: #e5e1e1;
 }
 
+.poll-question {
+    font-size: 120%;
+    margin-bottom: 0.3em;
+}
+
 .poll-date, .poll-votes {
     font-size: 80%;
+}
+
+.poll-votes {
+    float: right;
 }

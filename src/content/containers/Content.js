@@ -21,13 +21,15 @@ class PollListContainer extends React.Component {
     displayAddPollForm () {
         this.setState({
             addPollOpen: true
-        })
+        });
+        document.querySelector('body').style.overflow = 'hidden';
     }
 
     closeAddPollForm () {
         this.setState({
             addPollOpen: false
-        })
+        });
+        document.querySelector('body').style.overflow = 'auto';
     }
 
     handleAddPoll (newPoll) {
