@@ -28,8 +28,10 @@ class AddPollForm extends React.Component {
     }
 
     submitPoll(event) {
-        var arrayOptions = [],
-        newPoll;
+        var that = this,
+            arrayOptions = [],
+            newPoll,
+            isNewPollValid;
 
         event.preventDefault();
 
@@ -41,30 +43,29 @@ class AddPollForm extends React.Component {
             question: this.pollQuestion.value,
             options: arrayOptions
         };
-        this.props.addPoll(newPoll);
 
-        var isNewPollValid = this.localValidation(newPoll);
-        var that = this;
+        isNewPollValid = this.localValidation(newPoll);
 
         if (isNewPollValid) {
+            this.errorMsg.classList.add('hidden');
+
             axios.post('/api/addpoll', newPoll)
             .then(function (response) {
-                console.log('Submit response', response.data);
+                console.log('NewPollAddedInfo:', response);
+                // Add the id to the new poll:
+                newPoll._id =  response.data._id;
 
-                that.state.newPollLink = response.data;
-                that.forceUpdate();
-
-                //cleanForm();
-                //cleanErrors();
-                //errorMsg.innerHTML = 'Congratulations, your new poll has been created. <br> Link: ' + '<a href="' + newPollLink +'" target="_blank">' + newPollLink + '</a>';
+                that.props.addPoll(newPoll);
+                that.setState({
+                    newPollLink: response.data.url
+                });
             })
             .catch(function (err) {
-                console.log('Submit error ', err)
-                //displayErrors(err);
-                //cleanPollInfo()
+                that.errorMsg.classList.remove('hidden');
+                that.errorMsg.innerHTML = err.response && err.response.data && err.response.data.message || err.message;
             });
         } else {
-            //this.errorMsg).classList.remove('hidden');
+            this.errorMsg.classList.remove('hidden');
             console.log(this.errorMsg);
         }
     }

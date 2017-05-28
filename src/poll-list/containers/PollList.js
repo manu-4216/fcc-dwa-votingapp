@@ -9,8 +9,7 @@ class PollListContainer extends React.Component {
     }
 
     render() {
-        //return (<div>hello</div>)
-        return <PollList polls={this.props.polls} />
+        return <PollList polls={this.props.polls} deletePoll={this.props.deletePoll} />
     }
 }
 

@@ -14,6 +14,8 @@ var formats = {
 
 const PollList = props =>
 
+// onClick={props.handleClick}
+
 <ul className="polls">
 
     {
@@ -23,6 +25,7 @@ const PollList = props =>
 
         props.polls.map((poll, index) => (
             <li className="polls-item" key={index}>
+                <button className='close-button' onClick={props.deletePoll.bind(null, index)}>x</button>
                 <div className="poll-question"> { poll.question } </div>
                 <div>
                     <span className="poll-date"> Created: { moment(poll.created).calendar(new Date(), formats) } </span>

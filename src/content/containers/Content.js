@@ -15,7 +15,7 @@ class PollListContainer extends React.Component {
         }
         this.displayAddPollForm = this.displayAddPollForm.bind(this);
         //this.displayAddPollForm = this.displayAddPollForm.bind(this);
-        //this.displayAddPollForm = this.displayAddPollForm.bind(this);
+        this.handleDeletePoll = this.handleDeletePoll.bind(this);
     }
 
     displayAddPollForm () {
@@ -37,9 +37,39 @@ class PollListContainer extends React.Component {
             polls: this.state.polls.concat({
                 question: newPoll.question,
                 options: newPoll.options,
+                _id: newPoll._id,
                 votes: 0
             })
         })
+    }
+
+    handleDeletePoll (index, event) {
+        var idToDelete;
+
+        event.stopPropagation();
+
+        this.setState({
+            polls: this.state.polls.filter((poll, pollIndex) =>
+                {
+                    if (index !== pollIndex) {
+                        return true;
+                    } else {
+                        console.log('FOUND ', poll);
+                        idToDelete = poll._id;
+                        return false;
+                    }
+                }
+            )
+        })
+
+        console.log('idToDelete', idToDelete);
+        axios.delete('api/poll/' + idToDelete)
+        .then(function (response) {
+            console.log(response);
+        }.bind(this))
+        .catch(function (err) {
+            throw err
+        });
     }
 
     componentDidMount() {
@@ -59,7 +89,7 @@ class PollListContainer extends React.Component {
     render() {
         return (
             <div>
-                <PollList polls={this.state.polls} />
+                <PollList polls={this.state.polls} deletePoll={this.handleDeletePoll.bind(this)}/>
 
                 {!this.state.addPollOpen ?
                     <FloatingActionButton

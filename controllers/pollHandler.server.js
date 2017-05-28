@@ -26,7 +26,10 @@ function PollHandler () {
 	            return res.status(403).send(err)
 	        }
 	        var storedPollUrl = serverUrlBase + '/poll/' + storedPoll._id.toString();
-	        res.status(200).send(storedPollUrl);
+	        res.status(200).send({
+                url: storedPollUrl,
+                _id: storedPoll._id.toString()
+            })
 	    })
 
 	    /*
@@ -65,6 +68,23 @@ function PollHandler () {
         })
 	}
 
+    /**
+     * Handles the request of deleting a poll from the DB.
+     * @param  {Object} req - The request received
+     * @param  {Object} res - The response to send
+     */
+     this.deletePoll = function (req, res) {
+        console.log('BODY:', req.params);
+        console.log(req.params.id);
+ 		Polls.remove({ _id: mongoose.mongo.ObjectId(req.params.id) })
+         .then(function (result) {
+             res.send('ok');
+         })
+         .catch(function (err) {
+             res.send(err)
+         })
+ 	}
+
 
 	 /**
     * Handles the request of getting the list of polls.
@@ -75,7 +95,6 @@ function PollHandler () {
         console.log('user', req.user);
 		Polls.find({ author: req.user.username })
         .then(function (result) {
-            console.log('Inside getAllPolls')
         	res.send(result)
             /* res.send({
             	author: result.author,
