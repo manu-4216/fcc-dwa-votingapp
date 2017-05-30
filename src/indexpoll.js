@@ -1,9 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var App = require('./app/containers/App');
+var AnswerPoll = require('./answer-poll/containers/AnswerPoll');
 //require('./main.scss');
-//var AnswerPoll = require('./answer-poll/containers/AnswerPoll');
-App = require('./answer-poll/containers/AnswerPoll');
 
 var poll = {
     "author": "user",
@@ -18,6 +16,6 @@ var poll = {
 
 ReactDOM.render(
 
-  <App poll={poll} />,
-  document.getElementById('app')
+  <AnswerPoll poll={poll} />,
+  document.getElementById('app-poll')
 );

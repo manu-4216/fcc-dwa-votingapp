@@ -1,0 +1,24 @@
+@import '../../common/style/theme';
+
+.answer-poll-container {
+    width: 90%;
+}
+
+@media (min-width: 32em) {
+    .answer-poll-container {
+        width: 70%;
+    }
+}
+
+.answer-poll-question {
+    padding: 0.8em;
+    margin-bottom: 0.5em;
+    background: rgb(199, 159, 174);
+    font-size: 120%;
+}
+
+.answer-poll-option {
+    display: block;
+    padding: 0.4em;
+    text-align: left;
+}

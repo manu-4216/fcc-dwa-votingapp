@@ -72,7 +72,10 @@ module.exports = function (app, passport) {
 		//.delete(isLoggedIn, pollHandler.resetClicks);
 
 	app.route('/poll/:id')
-		.get(pollHandler.getPoll)
+		.get(function(req, res) {
+			res.sendFile(path + '/indexpoll.html');
+		})
+		//.get(pollHandler.getPoll)
 		//.post(isLoggedIn, pollHandler.addPoll)
 		//.delete(isLoggedIn, pollHandler.resetClicks);
 
