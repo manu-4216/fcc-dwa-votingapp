@@ -9,10 +9,16 @@ class AnswerPoll extends React.Component {
         super(props);
         console.log('OPTIONS', props.poll.options);
         this.state = {
-            newPollLink: ''
+            answer: ''
         };
 
-        //this.addOption = this.addOption.bind(this);
+        this.handleChoice = this.handleChoice.bind(this);
+    }
+
+    handleChoice(event) {
+        this.setState({
+            answer: event.target.value
+        })
     }
 
     submitVote(event) {
@@ -27,32 +33,32 @@ class AnswerPoll extends React.Component {
 
     render() {
         return (
-            <div class='center'>
+            <div className="answer-poll-container center">
+                <div className="scrollable-content">
 
-                <div className="answer-poll-container center">
-                    <div className="scrollable-content">
+                    <div>
+                        <form className="answer-poll-form">
+                            <div className="answer-poll-question">{this.props.poll.question}</div>
+                            {this.props.poll.options.map((option) =>
+                                <label className="answer-poll-option" key={option}>
+                                    <input type="radio" name="answer" onChange={this.handleChoice} value={option}></input>
+                                    <span>{option}</span>
+                                </label>
+                            )}
+                        </form>
+                        <button className='btn-add-option'>
+                            Add option (if logged in)
+                        </button>
 
-                        <div>
-                            <form className="answer-poll-form">
-                                <div className="answer-poll-question">{this.props.poll.question}</div>
-                                {this.props.poll.options.map((option) =>
-                                    <label className="answer-poll-option">
-                                        <input type="radio" name="answer" value={option}></input>
-                                        <span>{option}</span>
-                                    </label>
-                                )}
-                            </form>
-                            <button className='btn-add-option'>
-                                Add option (if logged in)
-                            </button>
-
-                            <button className='btn-submit-poll'>
+                        <div className='group-submit-answer'>
+                            <button className={'btn-submit-answer ' + (this.state.answer ? '' : 'disabled')}>
                                 Vote
                             </button>
-
+                            <span>Select an option first</span>
                         </div>
 
                     </div>
+
                 </div>
             </div>
 

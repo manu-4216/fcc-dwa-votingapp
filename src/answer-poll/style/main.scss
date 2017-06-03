@@ -2,6 +2,8 @@
 
 .answer-poll-container {
     width: 90%;
+    background: rgb(250, 240, 240);
+	background: linear-gradient(to bottom right, rgb(211, 201, 204), rgb(250, 240, 240));
 }
 
 @media (min-width: 32em) {
@@ -21,4 +23,43 @@
     display: block;
     padding: 0.4em;
     text-align: left;
+    span {
+        margin-left: 0.5em;
+    }
+}
+
+.answer-poll-container {
+    .btn-add-option {
+        background: rgba(243, 233, 221, 0.39);
+        color: black;
+        display: block;
+        margin-left: 2.5em;
+    }
+    .group-submit-answer {
+        display: block;
+        position: relative;
+        text-align: center;
+        margin-bottom: 0.2em;
+    }
+    .btn-submit-answer {
+        display: inline;
+        cursor: pointer;
+    }
+    .btn-submit-answer.disabled{
+        background: mix($theme-primary, grey, 20%);
+        cursor: not-allowed;
+    }
+    .btn-submit-answer + span {
+        display: none;
+    }
+    .btn-submit-answer.disabled:hover + span {
+        position: absolute;
+        top: 0.8em;
+        display: inline;
+        background: lighten(grayscale($theme-primary), 20%);
+        color: white;
+        padding: 0.2em 0.5em;
+        border-radius: 0.9em 0.2em 0.2em 0.9em;
+        font-size: 80%;
+    }
 }
