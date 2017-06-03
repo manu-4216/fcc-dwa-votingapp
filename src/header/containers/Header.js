@@ -11,6 +11,9 @@ class Header extends React.Component {
     handleLogout(e) {
         e.preventDefault();
 
+        window.history.pushState('login', 'Title', '/login');
+        this.props.updateUrl();
+
         axios.get('/logout')
         .then(function (response) {
             this.props.setLogin(false);

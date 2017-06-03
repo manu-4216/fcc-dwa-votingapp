@@ -4,6 +4,18 @@ var axios = require('axios');
 var PollList = require('poll-list/containers/PollList');
 var FloatingActionButton = require('fab/containers//FloatingActionButton');
 var AddPollForm = require('add-poll-form/containers//AddPollForm');
+var AnswerPoll = require('answer-poll/containers/AnswerPoll');
+
+var poll = {
+    "author": "user",
+    "question": "Favorite color?",
+    "created": "2017-05-28T08:14:21.176Z",
+    "options": [
+        "Red",
+        "Black"
+    ],
+    "votes": []
+};
 
 class PollListContainer extends React.Component {
 
@@ -86,23 +98,30 @@ class PollListContainer extends React.Component {
         });
     }
 
+
     render() {
         return (
             <div>
-                <PollList polls={this.state.polls} deletePoll={this.handleDeletePoll.bind(this)}/>
+            {(this.props.onPollPage) ?
+                <AnswerPoll poll={poll} /> :
 
-                {!this.state.addPollOpen ?
-                    <FloatingActionButton
-                        handleClick={this.displayAddPollForm}
-                    /> :
-                    <div>
-                        <AddPollForm
-                            handleClick={this.closeAddPollForm.bind(this)}
-                            addPoll={this.handleAddPoll.bind(this)}
-                        />
-                    </div>
-                }
-            </div>
+                <div>
+                    <PollList polls={this.state.polls} deletePoll={this.handleDeletePoll.bind(this)}/>
+
+                    {!this.state.addPollOpen ?
+                        <FloatingActionButton
+                            handleClick={this.displayAddPollForm}
+                        /> :
+                        <div>
+                            <AddPollForm
+                                handleClick={this.closeAddPollForm.bind(this)}
+                                addPoll={this.handleAddPoll.bind(this)}
+                            />
+                        </div>
+                    }
+                </div>
+            }
+        </div>
         )
     }
 }

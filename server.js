@@ -22,17 +22,23 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
+/*
 app.use('/controllers', express.static(process.cwd() + '/controllers'));
-//app.use('/dist', express.static(process.cwd() + '/dist'));
-//app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/common', express.static(process.cwd() + '/common'));
 app.use('/', express.static(process.cwd() + '/'));
+*/
 
+//app.use('/dist', express.static(process.cwd() + '/dist'));
+//app.use('/public', express.static(process.cwd() + '/public'));
+
+//app.use(express.static(process.cwd()+ '/public'));
+app.use('/', express.static(process.cwd() + '/'));
+app.use('/poll', express.static(process.cwd() + '/'));
 
 // Middleware for logging all the requests:
 function logger (req, res, next) {
     console.log(req.method + ' : ' +  req.originalUrl);
-    console.log('req', req.body);
+    //console.log('req', req.body);
     next()
 }
 app.use(logger)

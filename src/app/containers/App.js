@@ -15,10 +15,12 @@ class AppContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            loading: false
         }
 
         this.setLogin = this.setLogin.bind(this);
+        this.updateUrl = this.updateUrl.bind(this);
     }
 
     setLogin (newLoginState) {
@@ -27,15 +29,29 @@ class AppContainer extends React.Component {
         })
     }
 
+    updateUrl() {
+        this.setState({
+            onPollPage: (window.location.pathname.indexOf('/poll') === 0)
+        })
+    }
+
     componentDidMount() {
         var that = this;
 
+        that.setState({
+            onPollPage: (window.location.pathname.indexOf('/poll') === 0)
+        })
+
+        that.setState({
+            loading: true
+        });
+
         userHelpers.isLoggedIn()
             .then(function (loggedIn) {
-                console.log(loggedIn);
                 that.setState({
-                    loggedIn: loggedIn
-                })
+                    loggedIn: loggedIn,
+                    loading: false
+                });
             })
 /*
         axios.get('/polls')
@@ -58,13 +74,19 @@ class AppContainer extends React.Component {
                 <Header
                     setLogin={this.setLogin}
                     loggedIn={this.state.loggedIn}
+                    updateUrl={this.updateUrl}
                 />
-                {
-                    this.state.loggedIn ?
-                    <Content /> :
-                    <Login
-                        setLogin={this.setLogin}
-                    />
+                { this.state.loading ?
+                    <div>Loading...</div> :
+                    <div>{
+                        this.state.loggedIn || this.state.onPollPage?
+                        <Content loggedIn={this.state.loggedIn}
+                                 onPollPage={this.state.onPollPage}
+                        /> :
+                        <Login
+                            setLogin={this.setLogin}
+                        />
+                    }</div>
                 }
             </div>
         )

@@ -3,7 +3,7 @@ var ReactDOM = require('react-dom');
 var App = require('./app/containers/App');
 //require('./main.scss');
 //var AnswerPoll = require('./answer-poll/containers/AnswerPoll');
-App = require('./answer-poll/containers/AnswerPoll');
+//App = require('./answer-poll/containers/AnswerPoll');
 
 var poll = {
     "author": "user",

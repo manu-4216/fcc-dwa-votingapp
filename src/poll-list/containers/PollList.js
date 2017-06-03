@@ -8,6 +8,10 @@ class PollListContainer extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        window.history.pushState('polls', 'Title', '/polls');
+    }
+
     render() {
         return <PollList polls={this.props.polls} deletePoll={this.props.deletePoll} />
     }

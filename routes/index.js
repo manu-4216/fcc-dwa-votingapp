@@ -17,9 +17,17 @@ module.exports = function (app, passport) {
 	var clickHandler = new ClickHandler();
 	var pollHandler = new PollHandler();
 
+	app.route('/poll/:id')
+		.get(function(req, res) {
+			console.log('route /poll/:id');
+			console.log('Path ', path);
+			res.sendFile(path + '/index.html');
+		})
+
 	app.route('/')
 		.get(function(req, res) {
 			console.log('route /');
+			console.log('Path ', path);
 			res.sendFile(path + '/index.html');
 		})
 //		.get(isLoggedIn, function (req, res) {
@@ -71,10 +79,10 @@ module.exports = function (app, passport) {
 		.post(isLoggedIn, pollHandler.addPoll)
 		//.delete(isLoggedIn, pollHandler.resetClicks);
 
-	app.route('/poll/:id')
-		.get(function(req, res) {
-			res.sendFile(path + '/indexpoll.html');
-		})
+
+
+
+	////////
 		//.get(pollHandler.getPoll)
 		//.post(isLoggedIn, pollHandler.addPoll)
 		//.delete(isLoggedIn, pollHandler.resetClicks);

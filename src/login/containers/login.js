@@ -10,6 +10,9 @@ class Login extends React.Component {
         this.handleRegister = this.handleRegister.bind(this);
     }
 
+    componentDidMount() {
+        //window.history.pushState('login', 'Title', '/login');
+    }
 
     handleRegister(e) {
         e.preventDefault();
