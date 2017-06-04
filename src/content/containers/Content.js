@@ -53,7 +53,7 @@ class PollListContainer extends React.Component {
                 question: newPoll.question,
                 options: newPoll.options,
                 _id: newPoll._id,
-                votes: 0
+                votes: newPoll.options.map(item => 0)
             })
         })
     }
