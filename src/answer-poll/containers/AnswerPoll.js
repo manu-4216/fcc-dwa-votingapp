@@ -10,7 +10,7 @@ class AnswerPollContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            answer: '',
+            answerIndex: '',
             poll: {
                 question: "...",
                 options: []
@@ -24,22 +24,22 @@ class AnswerPollContainer extends React.Component {
 
     handleChoice(event) {
         this.setState({
-            answer: event.target.getAttribute('id')
+            answerIndex: event.target.getAttribute('id')
         })
     }
 
     handleSubmitVote(event) {
         event.preventDefault();
 
-        console.log('this.state.poll: ', this.state.poll);
-
-        if (this.state.answer !== '') {
+        if (this.state.answerIndex !== '') {
             axios.post('/api/vote', {
-                vote:  this.state.answer,
+                answerIndex:  this.state.answerIndex,
                 pollId: this.state.poll._id
             })
             .then(function (response) {
                 console.log('Vote send');
+                // Update the polls thus, getting the new vote count
+                this.props.fetchPolls();
             }.bind(this))
             .catch(function (err) {
                 throw err
@@ -57,8 +57,6 @@ class AnswerPollContainer extends React.Component {
         var that = this,
             pollId;
 
-        console.log('Passed pollToOpen', this.props.detailedPoll);
-
         // If there is a passed detailedPoll from a parent component, render it:
         if (Object.keys(this.props.detailedPoll).length > 0) {
             this.setState({
@@ -70,7 +68,6 @@ class AnswerPollContainer extends React.Component {
             pollId = window.location.pathname.split('/poll/')[1];
             axios.get('/api/poll/' + pollId)
             .then(function(answer) {
-                console.log('answer ', answer);
                 that.setState({
                     poll: answer.data
                 })
@@ -84,7 +81,7 @@ class AnswerPollContainer extends React.Component {
     render() {
         return (
             <AnswerPoll
-                answer={this.state.answer}
+                answerIndex={this.state.answerIndex}
                 handleChoice={this.handleChoice}
                 handleAddOption={this.handleAddOption}
                 handleSubmitVote={this.handleSubmitVote}

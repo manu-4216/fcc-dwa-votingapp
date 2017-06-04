@@ -15,7 +15,8 @@ function PollHandler () {
 	    var newPoll = new Polls({
 	    	author: req.user.username,
 	        question: req.body.question,
-	        options: req.body.options.filter(item => (item !== ''))
+	        options: req.body.options.filter(item => (item !== '')),
+            votes: req.body.options.filter(item => (item !== '')).map(item => 0)
 	    });
 
 	    newPoll.save(function (err, storedPoll) {
@@ -38,7 +39,6 @@ function PollHandler () {
 			.exec(function (err, result) {
 					if (err) { throw err; }
 
-					res.json(result.nbrClicks);
 				}
 			);
 			*/
@@ -67,6 +67,7 @@ function PollHandler () {
             res.send(err)
         })
 	}
+
 
     /**
      * Handles the request of deleting a poll from the DB.
@@ -118,9 +119,9 @@ function PollHandler () {
     this.getPoll = function (req, res) {
         console.log('pollId:', req.params.id);
 
-        Polls.find({ _id: req.params.id })
-        .then(function (result) {
-        	res.send(result[0]);
+        Polls.findById(req.params.id)
+        .then(function (poll) {
+        	res.send(poll);
         })
         .catch(function (err) {
             res.send(err)
@@ -134,11 +135,28 @@ function PollHandler () {
     * @param  {Object} res - The response to send
     */
     this.vote = function (req, res) {
-        console.log('pollId:', req.body.pollId);
-        console.log('vote:', req.body.vote);
+        var answerIndex = req.body.answerIndex;
+
+        console.log('vote:', req.body.answerIndex);
+
+        Polls.findById(req.body.pollId)
+        .then(function (poll) {
+            poll.votes[answerIndex] += 1;
+            poll.markModified('votes');
+            poll.save(function(err, savedPoll) {
+                if (err) {
+                    console.log('error ', err);
+                    res.send(err);
+                }
+
+                res.send(savedPoll.votes);
+            })
+        })
+        .catch(function (err) {
+            res.send(err)
+        })
 
         // update poll wih new option if needed. And inc vote
-        res.send('ok');
     }
 
 }

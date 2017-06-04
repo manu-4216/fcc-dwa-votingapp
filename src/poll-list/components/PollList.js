@@ -12,6 +12,13 @@ var formats = {
     sameElse: 'DD/MM/YYYY'
 }
 
+function getTotalVotes(votes) {
+    return votes.reduce(function(a, b) {
+        return a + b;
+    }, 0);
+}
+
+
 const PollList = props =>
 
 // onClick={props.handleClick}
@@ -29,7 +36,7 @@ const PollList = props =>
                 <div className="poll-question"> { poll.question } </div>
                 <div>
                     <span className="poll-date"> Created: { moment(poll.created).calendar(new Date(), formats) } </span>
-                    <span className="poll-votes"> Votes: {0} </span>
+                    <span className="poll-votes"> Votes: {getTotalVotes(poll.votes)} </span>
                 </div>
             </li>
         ))

@@ -23,7 +23,7 @@ const AnswerPoll = props =>
     </form>
 
     <div className='group-submit-answer'>
-        <button className={'btn-submit-answer ' + (props.answer ? '' : 'disabled')} onClick={props.handleSubmitVote}>
+        <button className={'btn-submit-answer ' + (props.answerIndex ? '' : 'disabled')} onClick={props.handleSubmitVote}>
             Vote
         </button>
         <span>Select an option first</span>

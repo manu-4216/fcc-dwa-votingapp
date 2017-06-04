@@ -30,6 +30,7 @@ class PollListContainer extends React.Component {
         //this.displayAddPollForm = this.displayAddPollForm.bind(this);
         this.handleDeletePoll = this.handleDeletePoll.bind(this);
         this.openPoll = this.openPoll.bind(this);
+        this.fetchPolls = this.fetchPolls.bind(this);
     }
 
     displayAddPollForm () {
@@ -96,7 +97,7 @@ class PollListContainer extends React.Component {
         this.props.updateUrl();
     }
 
-    componentDidMount() {
+    fetchPolls() {
         axios.get('/polls')
         .then(function (response) {
             debugger;
@@ -110,12 +111,19 @@ class PollListContainer extends React.Component {
         });
     }
 
+    componentDidMount() {
+        this.fetchPolls();
+    }
+
 
     render() {
         return (
             <div>
             {(this.props.onPollPage) ?
-                <AnswerPoll detailedPoll={this.state.pollToOpen} /> :
+                <AnswerPoll
+                    detailedPoll={this.state.pollToOpen}
+                    fetchPolls={this.fetchPolls}
+                /> :
 
                 <div>
                     <PollList polls={this.state.polls}
