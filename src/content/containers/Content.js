@@ -100,8 +100,7 @@ class PollListContainer extends React.Component {
     fetchPolls() {
         axios.get('/polls')
         .then(function (response) {
-            debugger;
-            console.log(response.data[0]);
+            console.log('/poll Fetch', response.data[0]);
             this.setState({
                 polls: response.data
             })
@@ -123,6 +122,7 @@ class PollListContainer extends React.Component {
                 <AnswerPoll
                     detailedPoll={this.state.pollToOpen}
                     fetchPolls={this.fetchPolls}
+                    loggedIn={this.props.loggedIn}
                 /> :
 
                 <div>

@@ -34,12 +34,19 @@
     display: block;
     padding: 0.4em;
     text-align: left;
-    span {
+    span, .custom-option {
         margin-left: 0.5em;
     }
     &:last-of-type {
         padding-bottom: 0;
-    };
+    }
+    .custom-option {
+        display: inline-block;
+        border-radius: 0.2em;
+        margin-bottom: 0.4em;
+        padding: 0.3em 0.4em;
+    }
+
 }
 
 .answer-poll-container {

@@ -135,13 +135,20 @@ function PollHandler () {
     * @param  {Object} res - The response to send
     */
     this.vote = function (req, res) {
-        var answerIndex = req.body.answerIndex;
+        var answerIndex = req.body.answerIndex,
+            customOption = req.body.customOption;
 
         console.log('vote:', req.body.answerIndex);
 
         Polls.findById(req.body.pollId)
         .then(function (poll) {
             poll.votes[answerIndex] += 1;
+            // Add a new option
+            if (customOption) {
+                poll.options.push(customOption);
+                poll.markModified('options');
+                poll.votes.push(1);
+            }
             poll.markModified('votes');
             poll.save(function(err, savedPoll) {
                 if (err) {
@@ -149,6 +156,7 @@ function PollHandler () {
                     res.send(err);
                 }
 
+                console.log('savedPoll ', savedPoll);
                 res.send(savedPoll.votes);
             })
         })
