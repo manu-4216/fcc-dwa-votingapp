@@ -86,7 +86,7 @@ function PollHandler () {
  	}
 
 
-	 /**
+	/**
     * Handles the request of getting the list of polls.
     * @param  {Object} req - The request received
 	* @param  {Object} res - The response to send
@@ -108,6 +108,38 @@ function PollHandler () {
             res.send(err)
         })
 	}
+
+
+    /**
+    * Handles the request of getting the info about a poll.
+    * @param  {Object} req - The request received
+    * @param  {Object} res - The response to send
+    */
+    this.getPoll = function (req, res) {
+        console.log('pollId:', req.params.id);
+
+        Polls.find({ _id: req.params.id })
+        .then(function (result) {
+        	res.send(result[0]);
+        })
+        .catch(function (err) {
+            res.send(err)
+        })
+    }
+
+
+    /**
+    * Handles the request of voting for a poll.
+    * @param  {Object} req - The request received
+    * @param  {Object} res - The response to send
+    */
+    this.vote = function (req, res) {
+        console.log('pollId:', req.body.pollId);
+        console.log('vote:', req.body.vote);
+
+        // update poll wih new option if needed. And inc vote
+        res.send('ok');
+    }
 
 }
 

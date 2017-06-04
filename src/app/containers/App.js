@@ -31,18 +31,16 @@ class AppContainer extends React.Component {
 
     updateUrl() {
         this.setState({
-            onPollPage: (window.location.pathname.indexOf('/poll') === 0)
+            onPollPage: (window.location.pathname.indexOf('/poll/') === 0)
         })
     }
 
     componentDidMount() {
         var that = this;
 
-        that.setState({
-            onPollPage: (window.location.pathname.indexOf('/poll') === 0)
-        })
+        this.updateUrl();
 
-        that.setState({
+        this.setState({
             loading: true
         });
 
@@ -53,18 +51,6 @@ class AppContainer extends React.Component {
                     loading: false
                 });
             })
-/*
-        axios.get('/polls')
-        .then(function (response) {
-            //console.log(response.data[0]);
-            this.setState({
-                polls: response.data
-            })
-        }.bind(this))
-        .catch(function (err) {
-            throw err
-        });
-        */
     }
 
     render() {
@@ -75,6 +61,7 @@ class AppContainer extends React.Component {
                     setLogin={this.setLogin}
                     loggedIn={this.state.loggedIn}
                     updateUrl={this.updateUrl}
+                    onPollPage={this.state.onPollPage}
                 />
                 { this.state.loading ?
                     <div>Loading...</div> :
@@ -82,6 +69,7 @@ class AppContainer extends React.Component {
                         this.state.loggedIn || this.state.onPollPage?
                         <Content loggedIn={this.state.loggedIn}
                                  onPollPage={this.state.onPollPage}
+                                 updateUrl={this.updateUrl}
                         /> :
                         <Login
                             setLogin={this.setLogin}

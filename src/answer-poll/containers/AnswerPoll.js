@@ -1,15 +1,20 @@
 var React = require('react');
 var axios = require('axios');
 
+var AnswerPoll = require('../components/AnswerPoll');
+
 require('../style/main.scss');
 
-class AnswerPoll extends React.Component {
+class AnswerPollContainer extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('OPTIONS', props.poll.options);
         this.state = {
-            answer: ''
+            answer: '',
+            poll: {
+                question: "...",
+                options: []
+            }
         };
 
         this.handleChoice = this.handleChoice.bind(this);
@@ -19,15 +24,26 @@ class AnswerPoll extends React.Component {
 
     handleChoice(event) {
         this.setState({
-            answer: event.target.value
+            answer: event.target.getAttribute('id')
         })
     }
 
     handleSubmitVote(event) {
         event.preventDefault();
 
-        if (this.state.answer) {
-            console.log('add 1 vote');
+        console.log('this.state.poll: ', this.state.poll);
+
+        if (this.state.answer !== '') {
+            axios.post('/api/vote', {
+                vote:  this.state.answer,
+                pollId: this.state.poll._id
+            })
+            .then(function (response) {
+                console.log('Vote send');
+            }.bind(this))
+            .catch(function (err) {
+                throw err
+            })
             // then display graph
         }
     }
@@ -38,45 +54,47 @@ class AnswerPoll extends React.Component {
     }
 
     componentDidMount() {
+        var that = this,
+            pollId;
 
+        console.log('Passed pollToOpen', this.props.detailedPoll);
+
+        // If there is a passed detailedPoll from a parent component, render it:
+        if (Object.keys(this.props.detailedPoll).length > 0) {
+            this.setState({
+                poll: this.props.detailedPoll
+            })
+
+        // Otherwise it means that the access has been done by URL, so extract the id from it:
+        } else {
+            pollId = window.location.pathname.split('/poll/')[1];
+            axios.get('/api/poll/' + pollId)
+            .then(function(answer) {
+                console.log('answer ', answer);
+                that.setState({
+                    poll: answer.data
+                })
+            })
+            .catch(function (err) {
+                throw err;
+            })
+        }
     }
 
     render() {
         return (
-            <div className="answer-poll-container center">
-                <div className="scrollable-content">
-
-                        <form className="answer-poll-form">
-                            <div className="answer-poll-question">{this.props.poll.question}</div>
-                            <div className='answer-poll-options-group'>
-                                <div className='answer-poll-options-label'>Options:</div>
-                                {this.props.poll.options.map((option) =>
-                                    <label className="answer-poll-option" key={option}>
-                                        <input type="radio" name="answer" onChange={this.handleChoice} value={option}></input>
-                                        <span>{option}</span>
-                                    </label>
-                                )}
-                                <button className='btn-add-option' onClick={this.handleAddOption}>
-                                    Add option (if logged in)
-                                </button>
-                            </div>
-                        </form>
-
-                        <div className='group-submit-answer'>
-                            <button className={'btn-submit-answer ' + (this.state.answer ? '' : 'disabled')} onClick={this.handleSubmitVote}>
-                                Vote
-                            </button>
-                            <span>Select an option first</span>
-                        </div>
-
-                </div>
-            </div>
-
+            <AnswerPoll
+                answer={this.state.answer}
+                handleChoice={this.handleChoice}
+                handleAddOption={this.handleAddOption}
+                handleSubmitVote={this.handleSubmitVote}
+                poll={this.state.poll}
+            />
         )
     }
 }
 
-module.exports = AnswerPoll
+module.exports = AnswerPollContainer
 
 
 const PollResult = props =>

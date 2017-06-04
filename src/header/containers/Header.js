@@ -6,6 +6,12 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+        this.goToPolls = this.goToPolls.bind(this);
+    }
+
+    goToPolls() {
+        window.history.pushState('polls', 'Title', '/polls');
+        this.props.updateUrl();
     }
 
     handleLogout(e) {
@@ -31,8 +37,12 @@ class Header extends React.Component {
 
                 <div className='header--right-side'>
                     <span className='header--welcome hidden'>Welcome, <span className="header--user-fullname"></span>!</span>
-                    <a className="header--menu linkto-profile" href="/profile">Profile</a>
-                    <span>|</span>
+                    {(this.props.onPollPage && this.props.loggedIn) &&
+                        <span>
+                            <a className="header--menu linkto-polls" onClick={this.goToPolls}>My Polls</a>
+                            <span>|</span>
+                        </span>
+                    }
                     {this.props.loggedIn ?
                         <button className="header--menu" onClick={this.handleLogout}>Logout</button> :
                         <button className="header--menu" onClick={this.handleLogout}>Login</button>

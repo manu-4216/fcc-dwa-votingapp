@@ -24,8 +24,8 @@ const PollList = props =>
         <div className="polls-item">Create your first poll with the '+' button below</div> :
 
         props.polls.map((poll, index) => (
-            <li className="polls-item" key={index}>
-                <button className='close-button' onClick={props.deletePoll.bind(null, index)}>x</button>
+            <li className="polls-item" key={poll._id} onClick={props.openPoll.bind(null, poll._id)}>
+                <button className='close-button' onClick={props.deletePoll.bind(null, poll._id)}>x</button>
                 <div className="poll-question"> { poll.question } </div>
                 <div>
                     <span className="poll-date"> Created: { moment(poll.created).calendar(new Date(), formats) } </span>

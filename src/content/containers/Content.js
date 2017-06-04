@@ -23,11 +23,13 @@ class PollListContainer extends React.Component {
         super(props);
         this.state = {
             polls: [],
-            addPollOpen: false
+            addPollOpen: false,
+            pollToOpen: {}
         }
         this.displayAddPollForm = this.displayAddPollForm.bind(this);
         //this.displayAddPollForm = this.displayAddPollForm.bind(this);
         this.handleDeletePoll = this.handleDeletePoll.bind(this);
+        this.openPoll = this.openPoll.bind(this);
     }
 
     displayAddPollForm () {
@@ -55,19 +57,15 @@ class PollListContainer extends React.Component {
         })
     }
 
-    handleDeletePoll (index, event) {
-        var idToDelete;
-
+    handleDeletePoll (idToDelete, event) {
         event.stopPropagation();
 
         this.setState({
-            polls: this.state.polls.filter((poll, pollIndex) =>
+            polls: this.state.polls.filter((poll) =>
                 {
-                    if (index !== pollIndex) {
+                    if (idToDelete !== poll._id) {
                         return true;
                     } else {
-                        console.log('FOUND ', poll);
-                        idToDelete = poll._id;
                         return false;
                     }
                 }
@@ -82,6 +80,20 @@ class PollListContainer extends React.Component {
         .catch(function (err) {
             throw err
         });
+    }
+
+    openPoll(id) {
+        console.log('ID: ', id);
+        var pollToOpen = this.state.polls.filter((poll) => {
+            return (poll._id === id)
+        })[0];
+        console.log('PollTo Open:', pollToOpen);
+
+        this.setState({
+            pollToOpen: pollToOpen
+        });
+        window.history.pushState('poll', 'Title', '/poll/' + id);
+        this.props.updateUrl();
     }
 
     componentDidMount() {
@@ -103,10 +115,12 @@ class PollListContainer extends React.Component {
         return (
             <div>
             {(this.props.onPollPage) ?
-                <AnswerPoll poll={poll} /> :
+                <AnswerPoll detailedPoll={this.state.pollToOpen} /> :
 
                 <div>
-                    <PollList polls={this.state.polls} deletePoll={this.handleDeletePoll.bind(this)}/>
+                    <PollList polls={this.state.polls}
+                              deletePoll={this.handleDeletePoll.bind(this)}
+                              openPoll={this.openPoll} />
 
                     {!this.state.addPollOpen ?
                         <FloatingActionButton

@@ -75,19 +75,15 @@ module.exports = function (app, passport) {
 		});
 
 	app.route('/api/addpoll')
-		//.get(isLoggedIn, pollHandler.getClicks)
 		.post(isLoggedIn, pollHandler.addPoll)
-		//.delete(isLoggedIn, pollHandler.resetClicks);
 
 
-
-
-	////////
-		//.get(pollHandler.getPoll)
-		//.post(isLoggedIn, pollHandler.addPoll)
-		//.delete(isLoggedIn, pollHandler.resetClicks);
+	app.route('/api/vote')
+		.post(pollHandler.vote)
+//////////////
 
 	app.route('/api/poll/:id')
+		.get(pollHandler.getPoll)
 		.delete(pollHandler.deletePoll)
 
 	app.route('/polls')
