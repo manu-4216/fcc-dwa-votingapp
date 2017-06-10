@@ -80,29 +80,29 @@ class AnswerPollContainer extends React.Component {
                 data.push([initialPoll.options[i], initialPoll.votes[i]]);
             }
 
-            console.log('before adding custom option', data);
             customOption && data.push([customOption, 0]);
-            console.log('after adding custom option', data);
-
-            console.log('answerIndex', answerIndex);
-            console.log('before inc', data[answerIndex]);
             data[answerIndex][1] += 1;
-            console.log('after inc', data[answerIndex]);
 
             return data;
         }
-        console.log('ST2', this.state);
+
         var chart = billboard.bb.generate({
-            bindto: "#chart",
+            bindto: "#answer-chart",
             "size": {
                 "height": 240,
-                "width": 480
+                "width": 350
             },
             data: {
                 type: "pie",
-                columns: getVoteData(this.state.poll, this.state.customOption, this.state.answerIndex)
+                columns: []
             }
         });
+
+        setTimeout(function() {
+            chart.load({
+                columns: getVoteData(this.state.poll, this.state.customOption, this.state.answerIndex)
+            });
+        }.bind(this), 200);
     }
 
     handleAddOption(event) {

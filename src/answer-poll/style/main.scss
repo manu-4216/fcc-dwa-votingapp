@@ -15,7 +15,7 @@
 }
 
 .answer-poll-form {
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
 }
 
 .answer-poll-question {
@@ -97,7 +97,10 @@
     }
 }
 
-#chart {
+.chart {
     max-height: 0;
     transition: all 0.3s ease-out;
+    transform: translateX(50%);
+    right: 50%;
+    float: right;
 }

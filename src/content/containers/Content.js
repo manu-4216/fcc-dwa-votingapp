@@ -2,8 +2,8 @@ var React = require('react');
 //var PollList = require('../components/Content0');
 var axios = require('axios');
 var PollList = require('poll-list/containers/PollList');
-var FloatingActionButton = require('fab/containers//FloatingActionButton');
-var AddPollForm = require('add-poll-form/containers//AddPollForm');
+var FloatingActionButton = require('fab/containers/FloatingActionButton');
+var AddPollForm = require('add-poll-form/containers/AddPollForm');
 var AnswerPoll = require('answer-poll/containers/AnswerPoll');
 
 var poll = {
@@ -17,7 +17,7 @@ var poll = {
     "votes": []
 };
 
-class PollListContainer extends React.Component {
+class ContentContainer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -100,7 +100,7 @@ class PollListContainer extends React.Component {
     fetchPolls() {
         axios.get('/polls')
         .then(function (response) {
-            console.log('/poll Fetch', response.data[0]);
+            console.log('/poll Fetch', response.data);
             this.setState({
                 polls: response.data || []
             })
@@ -148,4 +148,4 @@ class PollListContainer extends React.Component {
     }
 }
 
-module.exports = PollListContainer
+module.exports = ContentContainer

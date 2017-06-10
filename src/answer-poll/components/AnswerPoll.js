@@ -28,7 +28,7 @@ const AnswerPoll = props =>
                 </button>
             }
         </div>
-        <div id="chart"></div>
+        <div id="answer-chart" className="chart"></div>
     </form>
 
     {!props.voteSubmited &&
