@@ -8,9 +8,11 @@ module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
+			console.log('Is auth, next.');
 			return next();
 		} else {
-			res.redirect('/login');
+			console.log('Is NOT auth, redirect login.');
+			//res.redirect('/');
 		}
 	}
 
@@ -56,6 +58,7 @@ module.exports = function (app, passport) {
 		  var newUser = new User({ username: req.body.username });
 		  User.register(newUser, req.body.password, function(err) {
 			if (err) { console.log('error while user register!', err); return next(err); }
+				passport.authenticate('local');
 				console.log('user registered!');
 				res.send({ logged: true });
 		  });

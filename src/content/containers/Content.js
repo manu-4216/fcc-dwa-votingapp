@@ -102,7 +102,7 @@ class PollListContainer extends React.Component {
         .then(function (response) {
             console.log('/poll Fetch', response.data[0]);
             this.setState({
-                polls: response.data
+                polls: response.data || []
             })
         }.bind(this))
         .catch(function (err) {

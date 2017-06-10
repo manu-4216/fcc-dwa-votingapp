@@ -1,74 +1,97 @@
 var React = require('react');
 var axios = require('axios');
 
+var Login = require('../components/Login');
+
 require('../style/main.scss');
 
-class Login extends React.Component {
+class LoginContainer extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            username: '',
+            password: '',
+            errorMessage: ''
+        };
+
         this.handleLogin = this.handleLogin.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
+        this.handleUsernameEdit = this.handleUsernameEdit.bind(this);
+        this.handlePasswordEdit = this.handlePasswordEdit.bind(this);
     }
 
     componentDidMount() {
         //window.history.pushState('login', 'Title', '/login');
     }
 
+    handleUsernameEdit(event) {
+        this.setState({
+            username: event.target.value
+        })
+    }
+
+    handlePasswordEdit(event) {
+        this.setState({
+            password: event.target.value
+        })
+    }
+
     handleRegister(e) {
+        var that = this;
+
         e.preventDefault();
 
         axios.post('/register',  {
-            username: this.username.value,
-            password: this.password.value
+            username: this.state.username,
+            password: this.state.password
         })
         .then(function (response) {
-            this.props.setLogin(true);
-        }.bind(this))
+            that.props.setLogin(true);
+        })
         .catch(function (err) {
-            throw err
+            if (err) {
+                that.setState({
+                    errorMessage: err.message
+                })
+            }
         })
     }
 
     handleLogin(e) {
+        var that = this;
+
         e.preventDefault();
 
         axios.post('/login',  {
-            username: this.username.value,
-            password: this.password.value
+            username: this.state.username,
+            password: this.state.password
         })
         .then(function (response) {
-            this.props.setLogin(true);
-        }.bind(this))
+            console.log('RESP', response);
+            that.props.setLogin(true);
+        })
         .catch(function (err) {
-            if (err.response.status === '401') {
-                console.log('Wrong credentials');
-            } else {
-                throw err
+            if (err) {
+                that.setState({
+                    errorMessage: err.message
+                })
             }
         })
     }
 
     render() {
-        return  (
-            <div>
-                <form className="login-form center" action="/login" method="post">
-                    <div className="login-username">
-                        <label>Username:</label>
-                        <input type="text" name="username" autoComplete="off" ref={(input) => { this.username = input }}/>
-                    </div>
-                    <div className="login-password">
-                        <label>Password:</label>
-                        <input type="password" name="password" autoComplete="off" ref={(input) => { this.password = input }}/>
-                    </div>
-                    <div>
-                        <button onClick={this.handleLogin}>Log In</button>
-                        <button onClick={this.handleRegister}>Register</button>
-                    </div>
-                </form>
-            </div>
-        )
+        return <Login
+                    username={this.state.username}
+                    password={this.state.password}
+                    errorMessage={this.state.errorMessage}
+                    handleUsernameEdit={this.handleUsernameEdit}
+                    handlePasswordEdit={this.handlePasswordEdit}
+                    handleLogin={this.handleLogin}
+                    handleRegister={this.handleRegister}
+                />
     }
 }
 
 
-module.exports = Login;
+module.exports = LoginContainer;
