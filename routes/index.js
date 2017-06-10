@@ -90,7 +90,7 @@ module.exports = function (app, passport) {
 		.delete(pollHandler.deletePoll)
 
 	app.route('/polls')
-		.get(isLoggedIn, pollHandler.getAllPolls)
-		//.get(pollHandler.getAllPolls)
+		//.get(isLoggedIn, pollHandler.getAllPolls)
+		.get(pollHandler.getAllPolls)
 
 };

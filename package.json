@@ -11,6 +11,7 @@
   "homepage": "https://github.com/manu-4216/fcc-dwa-votingapp#readme",
   "dependencies": {
     "axios": "^0.13.1",
+    "billboard.js": "^1.0.0",
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",

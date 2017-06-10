@@ -1,5 +1,6 @@
 var React = require('react');
 var axios = require('axios');
+var billboard = require('billboard.js');
 
 var AnswerPoll = require('../components/AnswerPoll');
 
@@ -13,10 +14,12 @@ class AnswerPollContainer extends React.Component {
             answerIndex: '',
             poll: {
                 question: "...",
-                options: [],
-                customOptionAdded: false,
-                customOption: ''
-            }
+                options: []
+            },
+            answerIndex: '',
+            customOptionAdded: false,
+            customOption: '',
+            voteSubmited: false
         };
 
         this.handleChoice = this.handleChoice.bind(this);
@@ -26,8 +29,14 @@ class AnswerPollContainer extends React.Component {
     }
 
     handleChoice(event) {
+        var realIndex,
+            formIndex = event.target.getAttribute('id');
+
+        realIndex = (formIndex=== 'custom') ? this.state.poll.options.length : formIndex;
+        console.log('Real index: ', realIndex);
+
         this.setState({
-            answerIndex: event.target.getAttribute('id')
+            answerIndex: realIndex
         })
     }
 
@@ -43,7 +52,7 @@ class AnswerPollContainer extends React.Component {
         if (this.state.answerIndex !== '') {
             axios.post('/api/vote', {
                 answerIndex:  this.state.answerIndex,
-                customOption: (this.state.answerIndex === 'custom') ? this.state.customOption : '',
+                customOption: (this.state.answerIndex === this.state.poll.options.length) ? this.state.customOption : '',
                 pollId: this.state.poll._id
             })
             .then(function (response) {
@@ -57,6 +66,43 @@ class AnswerPollContainer extends React.Component {
             })
             // then display graph
         }
+
+        // Display graph
+        this.setState({
+            voteSubmited: true
+        })
+
+
+        function getVoteData (initialPoll, customOption, answerIndex) {
+            var data = [];
+            // First get the initial votes poll votes, then add the custom option:
+            for (var i = 0; i < initialPoll.options.length; i++) {
+                data.push([initialPoll.options[i], initialPoll.votes[i]]);
+            }
+
+            console.log('before adding custom option', data);
+            customOption && data.push([customOption, 0]);
+            console.log('after adding custom option', data);
+
+            console.log('answerIndex', answerIndex);
+            console.log('before inc', data[answerIndex]);
+            data[answerIndex][1] += 1;
+            console.log('after inc', data[answerIndex]);
+
+            return data;
+        }
+        console.log('ST2', this.state);
+        var chart = billboard.bb.generate({
+            bindto: "#chart",
+            "size": {
+                "height": 240,
+                "width": 480
+            },
+            data: {
+                type: "pie",
+                columns: getVoteData(this.state.poll, this.state.customOption, this.state.answerIndex)
+            }
+        });
     }
 
     handleAddOption(event) {
@@ -105,6 +151,7 @@ class AnswerPollContainer extends React.Component {
                 poll={this.state.poll}
                 handleCustomOptionEdit={this.handleCustomOptionEdit}
                 customOption={this.state.customOption}
+                voteSubmited={this.state.voteSubmited}
             />
         )
     }

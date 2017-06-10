@@ -14,6 +14,10 @@
     }
 }
 
+.answer-poll-form {
+    transition: all 0.2s ease-out;
+}
+
 .answer-poll-question {
     padding: 0.8em;
     background: rgb(199, 159, 174);
@@ -91,4 +95,9 @@
         border-radius: 0.9em 0.2em 0.2em 0.9em;
         font-size: 80%;
     }
+}
+
+#chart {
+    max-height: 0;
+    transition: all 0.3s ease-out;
 }

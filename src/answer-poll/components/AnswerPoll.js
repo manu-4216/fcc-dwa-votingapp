@@ -28,14 +28,17 @@ const AnswerPoll = props =>
                 </button>
             }
         </div>
+        <div id="chart"></div>
     </form>
 
-    <div className='group-submit-answer'>
-        <button className={'btn-submit-answer ' + (props.answerIndex ? '' : 'disabled')} onClick={props.handleSubmitVote}>
-            Vote
-        </button>
-        <span>Select an option first</span>
-    </div>
+    {!props.voteSubmited &&
+        <div className='group-submit-answer'>
+            <button className={'btn-submit-answer ' + (props.answerIndex ? '' : 'disabled')} onClick={props.handleSubmitVote}>
+                Vote
+            </button>
+            <span>Select an option first</span>
+        </div>
+    }
 
 </div>
 
