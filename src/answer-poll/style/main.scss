@@ -4,8 +4,9 @@
     width: 90%;
     background: rgb(250, 240, 240);
     border-radius: 0.3em;
-    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.63);
 	background: linear-gradient(to bottom right, rgb(211, 201, 204), rgb(250, 240, 240));
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.63);
 }
 
 @media (min-width: 32em) {
@@ -29,7 +30,7 @@
 }
 .answer-poll-options-label {
     text-align: left;
-    font-weight: 800;
+    font-weight: 700;
     padding: 0.4em 0 0.4em 2em;
     font-size: 110%;
 }

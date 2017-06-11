@@ -15,8 +15,9 @@
 }
 
 .scrollable-content {
-	max-height: 52vh;
+	max-height: calc(100vh - 10rem);
 	overflow-y: auto;
+	overflow-x: hidden;
 	box-shadow: 0 0 1px rgba(34, 32, 32, 0.46);
 	border-radius: .2rem;
 }
@@ -95,10 +96,14 @@
 	color: #000;
 	border: 1px solid hsla(0,7%,47%,.46);
 	border-radius: .1em;
-	margin-left: 1em;
+	margin: 0.5em auto;
+	&:hover {
+		box-shadow: inset 0 0 2px 0px black;
+		background: #f1e6da;
+	}
 }
 
-.btn-submit-poll:hover, .btn-add-option:hover {
+.btn-submit-poll:hover {
 	background: $theme-primary2;
 }
 
