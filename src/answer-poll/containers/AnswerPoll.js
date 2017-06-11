@@ -108,6 +108,18 @@ class AnswerPollContainer extends React.Component {
                 columns: getVoteData(this.state.poll, this.state.customOption, this.state.answerIndex)
             });
         }.bind(this), 200);
+
+        // Scroll smootly to bottom, to see the chart:
+        var scrollElem = document.querySelector('#answer-chart').parentElement;
+
+        function scroll (position) {
+            setTimeout(function() {
+                scrollElem.scrollTop = position;
+            }, position*3);
+        }
+        for (var position = 3; position < scrollElem.scrollHeight; position += 3) {
+            scroll(100 + position);
+        }
     }
 
     handleAddOption(event) {
