@@ -111,7 +111,7 @@ class AddPollForm extends React.Component {
                                 <p className='poll-error-msg hidden' ref={(errorMsg) => { this.errorMsg = errorMsg }}></p>
 
                                 <button className='btn-add-option' onClick={this.addOption}>
-                                    Add option
+                                    Add extra option
                                 </button>
 
                                 <button className='btn-submit-poll' onClick={this.submitPoll}>

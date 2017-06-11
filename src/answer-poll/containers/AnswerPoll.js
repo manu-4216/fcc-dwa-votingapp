@@ -48,29 +48,29 @@ class AnswerPollContainer extends React.Component {
     handleSubmitVote(event) {
         event.preventDefault();
 
-        if (this.state.answerIndex !== '') {
-            axios.post('/api/vote', {
-                answerIndex:  this.state.answerIndex,
-                customOption: (this.state.answerIndex === this.state.poll.options.length) ? this.state.customOption : '',
-                pollId: this.state.poll._id
-            })
-            .then(function (response) {
-                // Update the polls thus, getting the new vote count
-                if (this.props.loggedIn) {
-                    this.props.fetchPolls();
-                }
-            }.bind(this))
-            .catch(function (err) {
-                throw err
-            })
-            // then display graph
+        if (this.state.answerIndex === '') {
+            return;
         }
 
-        // Display graph
+        // Update the votes server side
+        axios.post('/api/vote', {
+            answerIndex:  this.state.answerIndex,
+            customOption: (this.state.answerIndex === this.state.poll.options.length) ? this.state.customOption : '',
+            pollId: this.state.poll._id
+        })
+        .then(function (response) {
+            // Update the polls thus, getting the new vote count
+            if (this.props.loggedIn) {
+                this.props.fetchPolls();
+            }
+        }.bind(this))
+        .catch(function (err) {
+            throw err
+        })
+
         this.setState({
             voteSubmited: true
         })
-
 
         function getVoteData (initialPoll, customOption, answerIndex) {
             var data = [];
@@ -86,6 +86,7 @@ class AnswerPollContainer extends React.Component {
             return data;
         }
 
+        // Display the chart of the results:
         var chart = billboard.bb.generate({
             bindto: "#answer-chart",
             "size": {

@@ -89,6 +89,15 @@
 	font-size: 110%;
 }
 
+.btn-add-option {
+	display: block;
+	background: hsla(33,48%,91%,.39);
+	color: #000;
+	border: 1px solid hsla(0,7%,47%,.46);
+	border-radius: .1em;
+	margin-left: 1em;
+}
+
 .btn-submit-poll:hover, .btn-add-option:hover {
 	background: $theme-primary2;
 }
