@@ -13,7 +13,8 @@ require('./config/passport2')(passport);
 
 // Configure the db:
 //mongoose.connect(process.env.MONGO_URI);
-mongoose.connect("mongodb://127.0.0.1:27017/votingapp");
+mongoose.connect(process.env.DB_URI);
+//mongoose.connect("mongodb://127.0.0.1:27017/votingapp");
 mongoose.Promise = global.Promise;
 
 // Use body parser:
