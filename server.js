@@ -10,6 +10,7 @@ var bodyParser = require('body-parser');
 var app = express();
 require('dotenv').load();
 require('./config/passport2')(passport);
+app.set('port', process.env.PORT || 3000);
 
 // Configure the db:
 //mongoose.connect(process.env.MONGO_URI);
@@ -58,7 +59,7 @@ app.use(passport.session());
 
 routes(app, passport);
 
-var port = 8080;
+var port = app.get('port');
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
 });
