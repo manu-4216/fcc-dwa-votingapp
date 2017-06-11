@@ -43,3 +43,9 @@ input[type='text'], input[type='password'], textarea  {
 	outline: none;
 	background: #f3e6d3;
 }
+
+path {
+	user-select: none;
+	outline: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}

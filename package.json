@@ -40,7 +40,8 @@
     "webpack-dev-server": "^1.16.5"
   },
   "scripts": {
-    "start": "webpack-dev-server --open",
+    "start-dev": "webpack-dev-server --open",
+    "start": "node server.js",
     "start:db": "mongod --dbpath data --nojournal",
     "build": "webpack -p --config webpack.prod.config.js"
   },

@@ -33,7 +33,6 @@ class AnswerPollContainer extends React.Component {
             formIndex = event.target.getAttribute('id');
 
         realIndex = (formIndex=== 'custom') ? this.state.poll.options.length : formIndex;
-        console.log('Real index: ', realIndex);
 
         this.setState({
             answerIndex: realIndex
@@ -75,7 +74,7 @@ class AnswerPollContainer extends React.Component {
 
         function getVoteData (initialPoll, customOption, answerIndex) {
             var data = [];
-            // First get the initial votes poll votes, then add the custom option:
+
             for (var i = 0; i < initialPoll.options.length; i++) {
                 data.push([initialPoll.options[i], initialPoll.votes[i]]);
             }
@@ -83,6 +82,7 @@ class AnswerPollContainer extends React.Component {
             customOption && data.push([customOption, 0]);
             data[answerIndex][1] += 1;
 
+            console.log('data', data);
             return data;
         }
 
@@ -90,14 +90,18 @@ class AnswerPollContainer extends React.Component {
             bindto: "#answer-chart",
             "size": {
                 "height": 240,
-                "width": 350
+                "width": 320
             },
             data: {
                 type: "pie",
                 columns: []
+            },
+            "onmouseover": function (d, i) {
+                console.log("onmouseover", d, i);
             }
         });
 
+        // Add the real data on timeout, for getting an animation
         setTimeout(function() {
             chart.load({
                 columns: getVoteData(this.state.poll, this.state.customOption, this.state.answerIndex)
@@ -108,7 +112,7 @@ class AnswerPollContainer extends React.Component {
     handleAddOption(event) {
         event.preventDefault();
 
-        // Indicate that the custom uption has been added (Only once allowed)
+        // Indicate that the custom option has been added (only once allowed, so toggle the boolean)
         this.setState({
             customOptionAdded: true
         });
