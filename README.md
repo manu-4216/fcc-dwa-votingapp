@@ -14,3 +14,14 @@ Objective: Build a full stack JavaScript app that allows you to manage and publi
   8. As an authenticated user, if I don't like the options on a poll, I can create a new option.
   
   Part of: FCC projects ([here](https://www.freecodecamp.com/challenges/build-a-voting-app))
+  
+  Screenshots:
+  
+  ![alt text](https://s3.postimg.org/wfydx1s0j/cap1.jpg)
+  ![alt text](https://s24.postimg.org/bgtadwr5h/cap2.jpg)
+  
+  ![alt text](https://s24.postimg.org/4p2vb225x/cap3.jpg)
+  ![alt text](https://s24.postimg.org/th2hiajcl/cap4.jpg)
+  
+  ![alt text](https://s24.postimg.org/ewlengodx/cap5.jpg)
+
