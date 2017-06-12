@@ -36,7 +36,6 @@ class Header extends React.Component {
                 <title className='header--title'>VOTING APP</title>
 
                 <div className='header--right-side'>
-                    <span className='header--welcome hidden'>Welcome, <span className="header--user-fullname"></span>!</span>
                     {(this.props.onPollPage && this.props.loggedIn) &&
                         <span>
                             <a className="header--menu linkto-polls" onClick={this.goToPolls}>My Polls</a>

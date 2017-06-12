@@ -50,3 +50,31 @@ path {
 	outline: none;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+// ANIMATION
+.anim-enter {
+  opacity: 0.01;
+  height: 0px;
+  transform: scale(0.5);
+}
+
+.anim-enter.anim-enter-active {
+  opacity: 1;
+  height: auto;
+  transition: 500ms;
+  transform: scale(1);
+}
+
+.anim-leave {
+  opacity: 1;
+  height: auto;
+  transform: scale(1);
+}
+
+.anim-leave.anim-leave-active {
+  opacity: 0.01;
+  height: 0px;
+  font-size: 1px;
+  transition: 500ms;
+  transform: scale(0.5);
+}

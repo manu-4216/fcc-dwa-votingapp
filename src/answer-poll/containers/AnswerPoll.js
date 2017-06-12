@@ -82,7 +82,6 @@ class AnswerPollContainer extends React.Component {
             customOption && data.push([customOption, 0]);
             data[answerIndex][1] += 1;
 
-            console.log('data', data);
             return data;
         }
 

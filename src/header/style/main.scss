@@ -28,9 +28,6 @@ header {
   header .header--title {
   	font-size: 1.4rem;
   }
-  div .header--welcome {
-    opacity: 1;
-  }
 
 }
 
@@ -56,15 +53,6 @@ div .hidden {
 	right: 0;
     top: 0.9em;
 	display: inline-block;
-}
-
-.header--welcome {
-	opacity: 0;
-	transition: opacity 0.4s;
-}
-
-.header--welcome.hidden {
-	opacity: 0;
 }
 
 .header--user-fullname{
