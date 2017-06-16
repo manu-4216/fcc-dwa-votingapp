@@ -1,6 +1,5 @@
 var path = process.cwd();
 var User = require('../models/users.js');
-var ClickHandler = require('../controllers/clickHandler.server.js');
 var PollHandler = require('../controllers/pollHandler.server.js');
 
 module.exports = function (app, passport) {
@@ -12,11 +11,10 @@ module.exports = function (app, passport) {
 			return next();
 		} else {
 			console.log('Is NOT auth, redirect login.');
-			//res.redirect('/');
+			res.redirect('/');
 		}
 	}
 
-	var clickHandler = new ClickHandler();
 	var pollHandler = new PollHandler();
 
 	app.route('/poll/:id')
@@ -32,11 +30,6 @@ module.exports = function (app, passport) {
 			console.log('Path ', path);
 			res.sendFile(path + '/index.html');
 		})
-//		.get(isLoggedIn, function (req, res) {
-//			console.log('hello /', req.body);
-			//res.sendFile(path + '/public/index.html');
-//			res.sendFile(path + '/server/index.html');
-//		});
 
 
 	app.route('/checklogin')
@@ -48,8 +41,11 @@ module.exports = function (app, passport) {
 		.post(passport.authenticate('local'), function(req, res) {
 			console.log(req.body);
 			res.send({ logged: true });
-		 });
-
+		 })
+		 .get(isLoggedIn, function(req, res) {
+	 		console.log(req.body);
+	 		res.redirect('/')
+	 	 });
 
 	app.route('/register')
 		.post(function(req, res, next) {
@@ -89,8 +85,12 @@ module.exports = function (app, passport) {
 		.get(pollHandler.getPoll)
 		.delete(pollHandler.deletePoll)
 
+	app.route('/api/polls')
+		.post(isLoggedIn, pollHandler.getAllPolls)
+
 	app.route('/polls')
-		//.get(isLoggedIn, pollHandler.getAllPolls)
-		.get(pollHandler.getAllPolls)
+		.get(function(req, res) {
+		   res.redirect('/')
+		});
 
 };

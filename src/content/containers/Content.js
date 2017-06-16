@@ -98,9 +98,9 @@ class ContentContainer extends React.Component {
     }
 
     fetchPolls() {
-        axios.get('/polls')
+        axios.post('/api/polls')
         .then(function (response) {
-            console.log('/poll Fetch', response.data);
+            console.log('/polls Fetch', response.data);
             this.setState({
                 polls: response.data || []
             })
