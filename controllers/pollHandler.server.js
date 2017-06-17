@@ -32,16 +32,6 @@ function PollHandler () {
                 _id: storedPoll._id.toString()
             })
 	    })
-
-	    /*
-		Polls
-			.find({ 'github.id': req.user.github.id }, { $inc: { 'nbrClicks.clicks': 1 } })
-			.exec(function (err, result) {
-					if (err) { throw err; }
-
-				}
-			);
-			*/
 	};
 
 
