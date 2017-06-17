@@ -24,7 +24,8 @@ class ContentContainer extends React.Component {
         this.state = {
             polls: [],
             addPollOpen: false,
-            pollToOpen: {}
+            pollToOpen: {},
+            loading: false
         }
         this.displayAddPollForm = this.displayAddPollForm.bind(this);
         //this.displayAddPollForm = this.displayAddPollForm.bind(this);
@@ -73,10 +74,8 @@ class ContentContainer extends React.Component {
             )
         })
 
-        console.log('idToDelete', idToDelete);
         axios.delete('api/poll/' + idToDelete)
         .then(function (response) {
-            console.log(response);
         }.bind(this))
         .catch(function (err) {
             throw err
@@ -84,11 +83,9 @@ class ContentContainer extends React.Component {
     }
 
     openPoll(id) {
-        console.log('ID: ', id);
         var pollToOpen = this.state.polls.filter((poll) => {
             return (poll._id === id)
         })[0];
-        console.log('PollTo Open:', pollToOpen);
 
         this.setState({
             pollToOpen: pollToOpen
@@ -98,11 +95,18 @@ class ContentContainer extends React.Component {
     }
 
     fetchPolls() {
+        if (!this.props.loggedIn) {
+            return;
+        }
+
+        this.setState({
+            loading: true
+        })
         axios.post('/api/polls')
         .then(function (response) {
-            console.log('/polls Fetch', response.data);
             this.setState({
-                polls: response.data || []
+                polls: response.data || [],
+                loading: false
             })
         }.bind(this))
         .catch(function (err) {
@@ -128,7 +132,9 @@ class ContentContainer extends React.Component {
                 <div>
                     <PollList polls={this.state.polls}
                               deletePoll={this.handleDeletePoll.bind(this)}
-                              openPoll={this.openPoll} />
+                              openPoll={this.openPoll}
+                              loading={this.state.loading}
+                    />
 
                     {!this.state.addPollOpen ?
                         <FloatingActionButton

@@ -75,8 +75,6 @@ function PollHandler () {
      * @param  {Object} res - The response to send
      */
      this.deletePoll = function (req, res) {
-        console.log('BODY:', req.params);
-        console.log(req.params.id);
  		Polls.remove({ _id: mongoose.mongo.ObjectId(req.params.id) })
          .then(function (result) {
              res.send('ok');
@@ -93,17 +91,9 @@ function PollHandler () {
 	* @param  {Object} res - The response to send
     */
 	this.getAllPolls = function (req, res) {
-        console.log('user', req.user);
 		Polls.find({ author: req.user.username })
         .then(function (result) {
         	res.send(result)
-            /* res.send({
-            	author: result.author,
-                question: result.question,
-                created: result.created,
-                options: result.options,
-                votes: result.votes
-            })*/
         })
         .catch(function (err) {
             res.send(err)
@@ -117,8 +107,6 @@ function PollHandler () {
     * @param  {Object} res - The response to send
     */
     this.getPoll = function (req, res) {
-        console.log('pollId:', req.params.id);
-
         Polls.findById(req.params.id)
         .then(function (poll) {
         	res.send(poll);
@@ -138,13 +126,14 @@ function PollHandler () {
         var answerIndex = req.body.answerIndex,
             customOption = req.body.customOption;
 
-        console.log('vote:', req.body.answerIndex);
-
         Polls.findById(req.body.pollId)
         .then(function (poll) {
-            poll.votes[answerIndex] += 1;
+            // Increment votes
+            if (answerIndex < poll.options.length) {
+                poll.votes[answerIndex] += 1;
+            }
             // Add a new option
-            if (customOption) {
+            if (answerIndex ===  poll.options.length && customOption) {
                 poll.options.push(customOption);
                 poll.markModified('options');
                 poll.votes.push(1);
@@ -154,10 +143,9 @@ function PollHandler () {
                 if (err) {
                     console.log('error ', err);
                     res.send(err);
+                } else {
+                    res.send(savedPoll.votes);
                 }
-
-                console.log('savedPoll ', savedPoll);
-                res.send(savedPoll.votes);
             })
         })
         .catch(function (err) {

@@ -32,7 +32,7 @@ class AnswerPollContainer extends React.Component {
         var realIndex,
             formIndex = event.target.getAttribute('id');
 
-        realIndex = (formIndex=== 'custom') ? this.state.poll.options.length : formIndex;
+        realIndex = (formIndex === 'custom') ? this.state.poll.options.length : formIndex;
 
         this.setState({
             answerIndex: realIndex
@@ -73,14 +73,18 @@ class AnswerPollContainer extends React.Component {
         })
 
         function getVoteData (initialPoll, customOption, answerIndex) {
-            var data = [];
+            var data = [],
+                isEmptyCustomOption = (initialPoll.options.length === answerIndex && customOption === '');
 
             for (var i = 0; i < initialPoll.options.length; i++) {
                 data.push([initialPoll.options[i], initialPoll.votes[i]]);
             }
 
-            customOption && data.push([customOption, 0]);
-            data[answerIndex][1] += 1;
+            // Sth is wrong
+            !isEmptyCustomOption && data.push([customOption, 0]);
+            if (initialPoll.options.length < answerIndex || (initialPoll.options.length === answerIndex && customOption)) {
+                data[answerIndex][1] += 1;
+            }
 
             return data;
         }
@@ -95,9 +99,6 @@ class AnswerPollContainer extends React.Component {
             data: {
                 type: "pie",
                 columns: []
-            },
-            "onmouseover": function (d, i) {
-                console.log("onmouseover", d, i);
             }
         });
 

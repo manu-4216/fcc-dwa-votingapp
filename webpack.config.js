@@ -44,6 +44,10 @@ module.exports = {
             {
                 test: /\.(png|jpg|)$/,
                 loader: 'url-loader?limit=200000'
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=public/fonts/[name].[ext]'
             }
         ]
     },

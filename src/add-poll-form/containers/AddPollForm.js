@@ -52,7 +52,6 @@ class AddPollForm extends React.Component {
 
             axios.post('/api/addpoll', newPoll)
             .then(function (response) {
-                console.log('NewPollAddedInfo:', response);
                 // Add the id to the new poll:
                 newPoll._id =  response.data._id;
 
@@ -67,7 +66,6 @@ class AddPollForm extends React.Component {
             });
         } else {
             this.errorMsg.classList.remove('hidden');
-            console.log(this.errorMsg);
         }
     }
 

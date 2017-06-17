@@ -7,10 +7,8 @@ module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
-			console.log('Is auth, next.');
 			return next();
 		} else {
-			console.log('Is NOT auth, redirect login.');
 			res.redirect('/');
 		}
 	}
@@ -19,47 +17,36 @@ module.exports = function (app, passport) {
 
 	app.route('/poll/:id')
 		.get(function(req, res) {
-			console.log('route /poll/:id');
-			console.log('Path ', path);
 			res.sendFile(path + '/index.html');
 		})
 
 	app.route('/')
 		.get(function(req, res) {
-			console.log('route /');
-			console.log('Path ', path);
 			res.sendFile(path + '/index.html');
 		})
 
 
 	app.route('/checklogin')
 		.get(function (req, res) {
-			console.log(req.isAuthenticated());
 			res.send({ logged: req.isAuthenticated() })
 		})
 
 	app.route('/login')
 		.post(passport.authenticate('local'), function(req, res) {
-			console.log(req.body);
 			res.send({ logged: true });
 		 })
 		 .get(isLoggedIn, function(req, res) {
-	 		console.log(req.body);
 	 		res.redirect('/')
 	 	 });
 
 	app.route('/register')
 		.post(function(req, res, next) {
-		  console.log('registering user');
-		  console.log(req.body);
 		  var newUser = new User({ username: req.body.username });
 		  User.register(newUser, req.body.password, function(err) {
 			if (err) { console.log('error while user register!', err); return next(err); }
-				var handler = passport.authenticate('local');
-				console.log('user registered!');
+				passport.authenticate('local');
 
-				//handler(req, res, next);
-				//res.send({ logged: true });
+				res.send({ logged: true });
 		  });
 		});
 
@@ -67,7 +54,6 @@ module.exports = function (app, passport) {
 	app.route('/logout')
 		.get(function (req, res) {
 			req.logout();
-			console.log('logged out');
 			res.send({ logged: false });
 		});
 

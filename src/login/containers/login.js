@@ -47,12 +47,18 @@ class LoginContainer extends React.Component {
             password: this.state.password
         })
         .then(function (response) {
+            return axios.post('/login',  {
+                username: that.state.username,
+                password: that.state.password
+            })
+        })
+        .then(function(response) {
             that.props.setLogin(true);
         })
         .catch(function (err) {
             if (err) {
                 that.setState({
-                    errorMessage: err.message
+                    errorMessage: "Please check your credentials"
                 })
             }
         })
@@ -68,13 +74,12 @@ class LoginContainer extends React.Component {
             password: this.state.password
         })
         .then(function (response) {
-            console.log('RESP', response);
             that.props.setLogin(true);
         })
         .catch(function (err) {
             if (err) {
                 that.setState({
-                    errorMessage: err.message
+                    errorMessage: "Please check your credentials"
                 })
             }
         })

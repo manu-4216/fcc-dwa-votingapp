@@ -22,14 +22,15 @@ function getTotalVotes(votes) {
 
 const PollList = props =>
 
-// onClick={props.handleClick}
-
 <ul className="polls">
 
-    {
-        props.polls.length === 0 ?
+    {props.polls.length === 0 ?
 
-        <div className="polls-item">Create your first poll with the '+' button below</div> :
+        <div>
+            {!props.loading &&
+                <div className="polls-item">Create your first poll with the '+' button below</div>
+            }
+        </div> :
 
         <ReactCSSTransitionGroup transitionName="anim" transitionEnterTimeout={500} transitionAppear={true} transitionAppearTimeout={300} transitionLeaveTimeout={500}>
             {props.polls.map((poll, index) => (
