@@ -78,11 +78,11 @@ class AddPollForm extends React.Component {
     render() {
         return (
 
+            <div className='center fixed'>
+                <div className='backdrop'></div>
+                <ReactCSSTransitionGroup transitionName="answer" transitionAppear={true} transitionAppearTimeout={300}>
 
-                <div class='center'>
-                    <div className='backdrop'></div>
-
-                    <div className="add-poll-container center">
+                    <div className="add-poll-container">
                         <div className="scrollable-content">
                             <button className='close-button' onClick={this.props.handleClick}>x</button>
                             {this.state.newPollLink ?
@@ -127,7 +127,8 @@ class AddPollForm extends React.Component {
 
                         </div>
                     </div>
-                </div>
+                </ReactCSSTransitionGroup>
+            </div>
 
         )
     }

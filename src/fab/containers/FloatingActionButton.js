@@ -13,9 +13,9 @@ class FloatingActionButton extends React.Component {
 
     render() {
         return (
-            <div className='add-button magic-circle pulse' onClick={this.props.handleClick} >
-  				<span className='add-button--text'>+</span>
-			</div>
+            <div  key={1} className='add-button magic-circle pulse' key={1} onClick={this.props.handleClick} >
+  			     <span className='add-button--text'>+</span>
+		    </div>
         )
     }
 }

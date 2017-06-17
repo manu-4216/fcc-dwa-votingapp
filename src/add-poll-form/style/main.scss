@@ -1,10 +1,10 @@
 @import '../../common/style/theme';
 
 .add-poll-container {
-	position: fixed !important;
 	text-align: center;
     box-sizing: border-box;
-    padding: 1.7em 1em 1em;;
+    padding: 1.7em 1em 1em;
+	position: relative;
 
     width: calc(100vw - 20vmin);
     background: rgb(250, 240, 240);
@@ -15,7 +15,7 @@
 }
 
 .scrollable-content {
-	max-height: calc(100vh - 10rem);
+	max-height: calc(100vh - 11rem);
 	overflow-y: auto;
 	overflow-x: hidden;
 	box-shadow: 0 0 1px rgba(34, 32, 32, 0.46);

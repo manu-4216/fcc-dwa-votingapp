@@ -4,8 +4,8 @@ require('../style/main.scss');
 
 const Login = props =>
 
-<div>
-    <form className="login-form center" action="/login" method="post">
+<div className="center">
+    <form className="login-form" action="/login" method="post">
         <div className="login-username">
             <label>Username:</label>
             <input type="text" name="username" autoComplete="off" value={props.username} onChange={props.handleUsernameEdit}/>

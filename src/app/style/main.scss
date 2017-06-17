@@ -20,12 +20,19 @@ form {
 }
 
 .center {
-	position: absolute;
-	left: 50%;
-	top: calc(50% + 2rem); // account for the header
-	transform: translate(-50%, -50%);
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	height: calc(100vh - 3.5em);
+    margin-top: 3.5em;
+	width: 100vw;
 }
 
+.fixed {
+	position: fixed;
+    top: 0;
+    left: 0;
+}
 button {
 	margin: 0.5em;
 	border: 1px solid black;
@@ -65,6 +72,19 @@ path {
   transform: scale(1);
 }
 
+.anim-appear {
+  opacity: 0.01;
+  height: 0px;
+  transform: scale(0.9);
+}
+
+.anim-appear.anim-appear-active {
+  opacity: 1;
+  height: auto;
+  transition: 300ms;
+  transform: scale(1);
+}
+
 .anim-leave {
   opacity: 1;
   height: auto;
@@ -77,4 +97,16 @@ path {
   font-size: 1px;
   transition: 500ms;
   transform: scale(0.5);
+}
+
+
+.answer-appear {
+  opacity: 0.01;
+  transform: scale(0.95);
+}
+
+.answer-appear.answer-appear-active {
+  opacity: 1;
+  transition: 300ms;
+  transform: scale(1);
 }

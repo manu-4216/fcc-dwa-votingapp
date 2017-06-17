@@ -31,7 +31,7 @@ const PollList = props =>
 
         <div className="polls-item">Create your first poll with the '+' button below</div> :
 
-        <ReactCSSTransitionGroup transitionName="anim" transitionAppear={true} transitionLeave={true} transitionAppearTimeout={500} transitionLeaveTimeout={500}>
+        <ReactCSSTransitionGroup transitionName="anim" transitionEnterTimeout={500} transitionAppear={true} transitionAppearTimeout={300} transitionLeaveTimeout={500}>
             {props.polls.map((poll, index) => (
                 <li className="polls-item" key={poll._id} onClick={props.openPoll.bind(null, poll._id)}>
                     <button className='close-button' onClick={props.deletePoll.bind(null, poll._id)}>x</button>

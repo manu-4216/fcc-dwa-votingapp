@@ -34,6 +34,7 @@ module.exports = function (app, passport) {
 
 	app.route('/checklogin')
 		.get(function (req, res) {
+			console.log(req.isAuthenticated());
 			res.send({ logged: req.isAuthenticated() })
 		})
 
@@ -54,9 +55,11 @@ module.exports = function (app, passport) {
 		  var newUser = new User({ username: req.body.username });
 		  User.register(newUser, req.body.password, function(err) {
 			if (err) { console.log('error while user register!', err); return next(err); }
-				passport.authenticate('local');
+				var handler = passport.authenticate('local');
 				console.log('user registered!');
-				res.send({ logged: true });
+
+				//handler(req, res, next);
+				//res.send({ logged: true });
 		  });
 		});
 
@@ -87,6 +90,7 @@ module.exports = function (app, passport) {
 
 	app.route('/api/polls')
 		.post(isLoggedIn, pollHandler.getAllPolls)
+		//.post(pollHandler.getAllPolls)
 
 	app.route('/polls')
 		.get(function(req, res) {
