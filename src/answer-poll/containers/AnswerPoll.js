@@ -73,16 +73,14 @@ class AnswerPollContainer extends React.Component {
         })
 
         function getVoteData (initialPoll, customOption, answerIndex) {
-            var data = [],
-                isEmptyCustomOption = (initialPoll.options.length === answerIndex && customOption === '');
+            var data = [];
 
             for (var i = 0; i < initialPoll.options.length; i++) {
                 data.push([initialPoll.options[i], initialPoll.votes[i]]);
             }
 
-            // Sth is wrong
-            !isEmptyCustomOption && data.push([customOption, 0]);
-            if (initialPoll.options.length < answerIndex || (initialPoll.options.length === answerIndex && customOption)) {
+            (initialPoll.options.length === answerIndex && customOption) && data.push([customOption, 1]);
+            if (answerIndex < initialPoll.options.length) {
                 data[answerIndex][1] += 1;
             }
 
