@@ -35,6 +35,10 @@
     font-size: 110%;
 }
 
+.answer-poll-options-group label:last-of-type {
+    margin-bottom: 0.3em;
+}
+
 .answer-poll-option {
     display: block;
     padding: 0.2em;

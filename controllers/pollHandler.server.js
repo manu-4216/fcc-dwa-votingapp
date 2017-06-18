@@ -76,11 +76,11 @@ function PollHandler () {
 
 
 	/**
-    * Handles the request of getting the list of polls.
+    * Handles the request of getting the list of polls of a logged user.
     * @param  {Object} req - The request received
 	* @param  {Object} res - The response to send
     */
-	this.getAllPolls = function (req, res) {
+	this.getAllUserPolls = function (req, res) {
 		Polls.find({ author: req.user.username })
         .then(function (result) {
         	res.send(result)
@@ -89,6 +89,21 @@ function PollHandler () {
             res.send(err)
         })
 	}
+
+    /**
+    * Handles the request of getting the list of polls.
+    * @param  {Object} req - The request received
+    * @param  {Object} res - The response to send
+    */
+    this.getAllPolls = function (req, res) {
+        Polls.find({})
+        .then(function (result) {
+            res.send(result)
+        })
+        .catch(function (err) {
+            res.send(err)
+        })
+    }
 
 
     /**

@@ -17,6 +17,7 @@ class PollListContainer extends React.Component {
                          deletePoll={this.props.deletePoll}
                          openPoll={this.props.openPoll}
                          loading={this.props.loading}
+                         loggedIn={this.props.loggedIn}
                 />
     }
 }

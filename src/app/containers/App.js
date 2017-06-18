@@ -2,7 +2,7 @@ var React = require('react');
 
 var Header = require('header/containers/Header');
 var Content = require('content/containers/Content');
-var Login = require('login/containers/login');
+var Login = require('login/containers/Login');
 
 require('../style/main.scss');
 
@@ -16,11 +16,12 @@ class AppContainer extends React.Component {
         super(props);
         this.state = {
             loggedIn: false,
-            loading: false
+            loading: false,
+            activeRoute: '/'
         }
 
         this.setLogin = this.setLogin.bind(this);
-        this.updateUrl = this.updateUrl.bind(this);
+        this.updateActiveRoute = this.updateActiveRoute.bind(this);
     }
 
     setLogin (newLoginState) {
@@ -29,16 +30,25 @@ class AppContainer extends React.Component {
         })
     }
 
-    updateUrl() {
+    updateActiveRoute() {
+        var activeRoute;
+
+        if (window.location.pathname.indexOf('/polls') === 0) {
+            activeRoute = 'polls';
+        } else if (window.location.pathname.indexOf('/poll/') === 0) {
+            activeRoute = 'poll';
+        } else if (window.location.pathname.indexOf('/login') === 0) {
+            activeRoute = 'login'
+        }
         this.setState({
-            onPollPage: (window.location.pathname.indexOf('/poll/') === 0)
+            activeRoute: activeRoute
         })
     }
 
     componentDidMount() {
         var that = this;
 
-        this.updateUrl();
+        this.updateActiveRoute();
 
         this.setState({
             loading: true
@@ -51,30 +61,37 @@ class AppContainer extends React.Component {
                     loading: false
                 });
             })
+            .catch(function (err) {
+                if (err) throw err;
+            })
     }
 
     render() {
-        //return <PollList polls={this.state.polls} />;
         return (
             <div>
                 <Header
                     setLogin={this.setLogin}
                     loggedIn={this.state.loggedIn}
-                    updateUrl={this.updateUrl}
-                    onPollPage={this.state.onPollPage}
+                    updateActiveRoute={this.updateActiveRoute}
+                    activeRoute={this.state.activeRoute}
                 />
                 { this.state.loading ?
                     <div>Loading...</div> :
-                    <div>{
-                        this.state.loggedIn || this.state.onPollPage?
-                        <Content loggedIn={this.state.loggedIn}
-                                 onPollPage={this.state.onPollPage}
-                                 updateUrl={this.updateUrl}
-                        /> :
-                        <Login
-                            setLogin={this.setLogin}
-                        />
-                    }</div>
+                    <div>
+                        {(this.state.activeRoute === 'polls' || this.state.activeRoute === 'poll' || this.state.activeRoute === '/') &&
+                            <Content loggedIn={this.state.loggedIn}
+                                     activeRoute={this.state.activeRoute}
+                                     updateActiveRoute={this.updateActiveRoute}
+                            />
+                        }
+
+                        {this.state.activeRoute === 'login' &&
+                            <Login
+                                setLogin={this.setLogin}
+                                updateActiveRoute={this.updateActiveRoute}
+                            />
+                        }
+                    </div>
                 }
             </div>
         )

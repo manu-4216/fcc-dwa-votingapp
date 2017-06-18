@@ -32,8 +32,12 @@
     margin-right: 1.3em;
 }
 
-.poll-date, .poll-votes {
+.poll-date, .poll-votes, .poll-author {
     font-size: 80%;
+}
+
+.poll-author {
+    padding-left: 1em;
 }
 
 .poll-votes {

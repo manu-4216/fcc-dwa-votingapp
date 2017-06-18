@@ -25,7 +25,7 @@ class AddPollForm extends React.Component {
     }
 
     localValidation(poll) {
-        return true;
+        return (poll.question && poll.options[0] && poll.options[1]) ;
     }
 
     submitPoll(event) {
@@ -35,9 +35,11 @@ class AddPollForm extends React.Component {
             isNewPollValid;
 
         event.preventDefault();
+        that.errorMsg.innerHTML = '';
 
         for (var option of this.pollOptionList.children) {
-            arrayOptions.push(option.querySelector('input').value);
+            var optionValue = option.querySelector('input').value;
+            optionValue && arrayOptions.push(optionValue);
         }
 
         newPoll = {
@@ -48,7 +50,7 @@ class AddPollForm extends React.Component {
         isNewPollValid = this.localValidation(newPoll);
 
         if (isNewPollValid) {
-            this.errorMsg.classList.add('hidden');
+            //this.errorMsg.classList.add('hidden');
 
             axios.post('/api/addpoll', newPoll)
             .then(function (response) {
@@ -61,11 +63,13 @@ class AddPollForm extends React.Component {
                 });
             })
             .catch(function (err) {
-                that.errorMsg.classList.remove('hidden');
+                //that.errorMsg.classList.remove('hidden');
+                console.log(err);
                 that.errorMsg.innerHTML = err.response && err.response.data && err.response.data.message || err.message;
             });
         } else {
-            this.errorMsg.classList.remove('hidden');
+            //this.errorMsg.classList.remove('hidden');
+            this.errorMsg.innerHTML = "Invalid poll. The question and 2 options are mandatory";
         }
     }
 
@@ -109,7 +113,7 @@ class AddPollForm extends React.Component {
 
                                     </form>
 
-                                    <p className='poll-error-msg hidden' ref={(errorMsg) => { this.errorMsg = errorMsg }}></p>
+                                    <p className='poll-error-msg' ref={(errorMsg) => { this.errorMsg = errorMsg }}></p>
 
                                     <button className='btn-add-option' onClick={this.addOption}>
                                         Add extra option

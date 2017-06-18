@@ -11,14 +11,14 @@ class Header extends React.Component {
 
     goToPolls() {
         window.history.pushState('polls', 'Title', '/polls');
-        this.props.updateUrl();
+        this.props.updateActiveRoute();
     }
 
     handleLogout(e) {
         e.preventDefault();
 
         window.history.pushState('login', 'Title', '/login');
-        this.props.updateUrl();
+        this.props.updateActiveRoute();
 
         axios.get('/logout')
         .then(function (response) {
@@ -36,9 +36,11 @@ class Header extends React.Component {
                 <title className='header--title'>VOTING APP</title>
 
                 <div className='header--right-side'>
-                    {(this.props.onPollPage && this.props.loggedIn) &&
+                    {(this.props.activeRoute === 'poll' || this.props.activeRoute === 'login') &&
                         <span>
-                            <a className="header--menu linkto-polls" onClick={this.goToPolls}>My Polls</a>
+                            <a className="header--menu linkto-polls" onClick={this.goToPolls}>
+                                {this.props.loggedIn ? 'My Polls' : 'All Polls'}
+                            </a>
                             <span>|</span>
                         </span>
                     }

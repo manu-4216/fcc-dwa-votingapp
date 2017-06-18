@@ -54,6 +54,8 @@ class LoginContainer extends React.Component {
         })
         .then(function(response) {
             that.props.setLogin(true);
+            window.history.pushState('polls', 'Title', '/polls');
+            that.props.updateActiveRoute();
         })
         .catch(function (err) {
             if (err) {
@@ -75,6 +77,8 @@ class LoginContainer extends React.Component {
         })
         .then(function (response) {
             that.props.setLogin(true);
+            window.history.pushState('polls', 'Title', '/polls');
+            that.props.updateActiveRoute();
         })
         .catch(function (err) {
             if (err) {

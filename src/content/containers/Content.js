@@ -91,14 +91,10 @@ class ContentContainer extends React.Component {
             pollToOpen: pollToOpen
         });
         window.history.pushState('poll', 'Title', '/poll/' + id);
-        this.props.updateUrl();
+        this.props.updateActiveRoute();
     }
 
     fetchPolls() {
-        if (!this.props.loggedIn) {
-            return;
-        }
-
         this.setState({
             loading: true
         })
@@ -122,7 +118,7 @@ class ContentContainer extends React.Component {
     render() {
         return (
             <div>
-            {(this.props.onPollPage) ?
+            {(this.props.activeRoute === 'poll') ?
                 <AnswerPoll
                     detailedPoll={this.state.pollToOpen}
                     fetchPolls={this.fetchPolls}
@@ -134,19 +130,25 @@ class ContentContainer extends React.Component {
                               deletePoll={this.handleDeletePoll.bind(this)}
                               openPoll={this.openPoll}
                               loading={this.state.loading}
+                              loggedIn={this.props.loggedIn}
                     />
 
-                    {!this.state.addPollOpen ?
-                        <FloatingActionButton
-                            handleClick={this.displayAddPollForm}
-                        /> :
+                    {this.props.loggedIn &&
                         <div>
-                            <AddPollForm
-                                handleClick={this.closeAddPollForm.bind(this)}
-                                addPoll={this.handleAddPoll.bind(this)}
-                            />
+                            {!this.state.addPollOpen ?
+                                <FloatingActionButton
+                                    handleClick={this.displayAddPollForm}
+                                /> :
+                                <div>
+                                    <AddPollForm
+                                        handleClick={this.closeAddPollForm.bind(this)}
+                                        addPoll={this.handleAddPoll.bind(this)}
+                                    />
+                                </div>
+                            }
                         </div>
                     }
+
                 </div>
             }
         </div>

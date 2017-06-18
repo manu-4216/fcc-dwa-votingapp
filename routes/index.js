@@ -75,8 +75,16 @@ module.exports = function (app, passport) {
 		.delete(pollHandler.deletePoll)
 
 	app.route('/api/polls')
-		.post(isLoggedIn, pollHandler.getAllPolls)
-		//.post(pollHandler.getAllPolls)
+		//.post(isLoggedIn, pollHandler.getAllPolls)
+		.post(function(req, res) {
+			console.log('The use is ' + req.isAuthenticated() ? '' : 'not' + ' authenticated');
+
+			if (req.isAuthenticated()) {
+				pollHandler.getAllUserPolls(req, res)
+			} else {
+				pollHandler.getAllPolls(req, res)
+			}
+		})
 
 	app.route('/polls')
 		.get(function(req, res) {
