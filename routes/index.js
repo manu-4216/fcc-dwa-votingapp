@@ -80,13 +80,18 @@ module.exports = function (app, passport) {
 			console.log('The use is ' + req.isAuthenticated() ? '' : 'not' + ' authenticated');
 
 			if (req.isAuthenticated()) {
-				pollHandler.getAllUserPolls(req, res)
+				if (req.body.filter === 'all') {
+					pollHandler.getAllPolls(req, res);
+				} else {
+					pollHandler.getAllUserPolls(req, res);
+				}
+
 			} else {
 				pollHandler.getAllPolls(req, res)
 			}
 		})
 
-	app.route('/polls')
+	app.route(['/polls', '/all'])
 		.get(function(req, res) {
 		   res.redirect('/')
 		});

@@ -6,19 +6,18 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
-        this.goToPolls = this.goToPolls.bind(this);
+        this.updateHash = this.updateHash.bind(this);
     }
 
-    goToPolls() {
-        window.history.pushState('polls', 'Title', '/polls');
+    updateHash(hash) {
+        window.history.pushState(hash, 'Title', '/' + hash);
         this.props.updateActiveRoute();
     }
 
     handleLogout(e) {
         e.preventDefault();
 
-        window.history.pushState('login', 'Title', '/login');
-        this.props.updateActiveRoute();
+        this.updateHash('login');
 
         axios.get('/logout')
         .then(function (response) {
@@ -38,8 +37,16 @@ class Header extends React.Component {
                 <div className='header--right-side'>
                     {(this.props.activeRoute === 'poll' || this.props.activeRoute === 'login') &&
                         <span>
-                            <a className="header--menu linkto-polls" onClick={this.goToPolls}>
+                            <a className="header--menu linkto-polls" onClick={this.updateHash.bind(null, (this.props.activeRoute === 'all' || this.props.activeRoute === 'poll') ? 'polls' : 'all')}>
                                 {this.props.loggedIn ? 'My Polls' : 'All Polls'}
+                            </a>
+                            <span>|</span>
+                        </span>
+                    }
+                    {(this.props.loggedIn && (this.props.activeRoute === 'polls' || this.props.activeRoute === 'all')) &&
+                        <span>
+                            <a className="header--menu linkto-polls" onClick={this.updateHash.bind(null, this.props.activeRoute === 'all' ? 'polls' : 'all')}>
+                                {(this.props.activeRoute === 'all') ? 'My Polls' : 'All Polls'}
                             </a>
                             <span>|</span>
                         </span>

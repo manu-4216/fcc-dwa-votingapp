@@ -59,10 +59,7 @@ class AnswerPollContainer extends React.Component {
             pollId: this.state.poll._id
         })
         .then(function (response) {
-            // Update the polls thus, getting the new vote count
-            if (this.props.loggedIn) {
-                this.props.fetchPolls();
-            }
+            // this.props.fetchPolls();
         }.bind(this))
         .catch(function (err) {
             throw err

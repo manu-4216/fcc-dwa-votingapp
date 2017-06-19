@@ -6,32 +6,17 @@ var FloatingActionButton = require('fab/containers/FloatingActionButton');
 var AddPollForm = require('add-poll-form/containers/AddPollForm');
 var AnswerPoll = require('answer-poll/containers/AnswerPoll');
 
-var poll = {
-    "author": "user",
-    "question": "Favorite color?",
-    "created": "2017-05-28T08:14:21.176Z",
-    "options": [
-        "Red",
-        "Black"
-    ],
-    "votes": []
-};
 
 class ContentContainer extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            polls: [],
             addPollOpen: false,
-            pollToOpen: {},
-            loading: false
+            pollToOpen: {}
         }
         this.displayAddPollForm = this.displayAddPollForm.bind(this);
-        //this.displayAddPollForm = this.displayAddPollForm.bind(this);
-        this.handleDeletePoll = this.handleDeletePoll.bind(this);
         this.openPoll = this.openPoll.bind(this);
-        this.fetchPolls = this.fetchPolls.bind(this);
     }
 
     displayAddPollForm () {
@@ -48,42 +33,9 @@ class ContentContainer extends React.Component {
         document.querySelector('body').style.overflow = 'auto';
     }
 
-    handleAddPoll (newPoll) {
-        this.setState({
-            polls: this.state.polls.concat({
-                question: newPoll.question,
-                options: newPoll.options,
-                _id: newPoll._id,
-                votes: newPoll.options.map(item => 0)
-            })
-        })
-    }
-
-    handleDeletePoll (idToDelete, event) {
-        event.stopPropagation();
-
-        this.setState({
-            polls: this.state.polls.filter((poll) =>
-                {
-                    if (idToDelete !== poll._id) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            )
-        })
-
-        axios.delete('api/poll/' + idToDelete)
-        .then(function (response) {
-        }.bind(this))
-        .catch(function (err) {
-            throw err
-        });
-    }
 
     openPoll(id) {
-        var pollToOpen = this.state.polls.filter((poll) => {
+        var pollToOpen = this.props.polls.filter((poll) => {
             return (poll._id === id)
         })[0];
 
@@ -94,24 +46,8 @@ class ContentContainer extends React.Component {
         this.props.updateActiveRoute();
     }
 
-    fetchPolls() {
-        this.setState({
-            loading: true
-        })
-        axios.post('/api/polls')
-        .then(function (response) {
-            this.setState({
-                polls: response.data || [],
-                loading: false
-            })
-        }.bind(this))
-        .catch(function (err) {
-            throw err
-        });
-    }
 
     componentDidMount() {
-        this.fetchPolls();
     }
 
 
@@ -121,16 +57,17 @@ class ContentContainer extends React.Component {
             {(this.props.activeRoute === 'poll') ?
                 <AnswerPoll
                     detailedPoll={this.state.pollToOpen}
-                    fetchPolls={this.fetchPolls}
+                    fetchPolls={this.props.fetchPolls}
                     loggedIn={this.props.loggedIn}
                 /> :
 
                 <div>
-                    <PollList polls={this.state.polls}
-                              deletePoll={this.handleDeletePoll.bind(this)}
+                    <PollList polls={this.props.polls}
+                              deletePoll={this.props.handleDeletePoll}
                               openPoll={this.openPoll}
-                              loading={this.state.loading}
+                              loading={this.props.loading}
                               loggedIn={this.props.loggedIn}
+                              activeRoute={this.props.activeRoute}
                     />
 
                     {this.props.loggedIn &&
@@ -142,7 +79,7 @@ class ContentContainer extends React.Component {
                                 <div>
                                     <AddPollForm
                                         handleClick={this.closeAddPollForm.bind(this)}
-                                        addPoll={this.handleAddPoll.bind(this)}
+                                        addPoll={this.props.handleAddPoll}
                                     />
                                 </div>
                             }

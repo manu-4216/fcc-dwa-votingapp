@@ -35,13 +35,13 @@ const PollList = props =>
         <ReactCSSTransitionGroup transitionName="anim" transitionEnterTimeout={500} transitionAppear={true} transitionAppearTimeout={300} transitionLeaveTimeout={500}>
             {props.polls.map((poll, index) => (
                 <li className="polls-item" key={poll._id} onClick={props.openPoll.bind(null, poll._id)}>
-                    {props.loggedIn &&
+                    {(props.activeRoute === 'polls') &&
                         <button className='close-button' onClick={props.deletePoll.bind(null, poll._id)}>x</button>
                     }
                     <div className="poll-question"> { poll.question } </div>
                     <div>
                         <span className="poll-date"> Created: { moment(poll.created).calendar(new Date(), formats) } </span>
-                        {!props.loggedIn &&
+                        {(props.activeRoute === '/' || props.activeRoute === 'all') &&
                             <span className="poll-author"> Author: { poll.author } </span>
                         }
                         <span className="poll-votes"> Votes: {getTotalVotes(poll.votes)} </span>

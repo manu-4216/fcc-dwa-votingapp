@@ -9,7 +9,10 @@ class PollListContainer extends React.Component {
     }
 
     componentDidMount() {
-        window.history.pushState('polls', 'Title', '/polls');
+        //activeRoute={this.props.activeRoute}
+        //updateActiveRoute={this.props.updateActiveRoute}
+        //window.history.pushState('/', 'Title', '/');
+        //window.history.pushState('polls', 'Title', '/polls');
     }
 
     render() {
@@ -18,6 +21,7 @@ class PollListContainer extends React.Component {
                          openPoll={this.props.openPoll}
                          loading={this.props.loading}
                          loggedIn={this.props.loggedIn}
+                         activeRoute={this.props.activeRoute}
                 />
     }
 }
