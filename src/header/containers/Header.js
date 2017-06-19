@@ -37,7 +37,7 @@ class Header extends React.Component {
                 <div className='header--right-side'>
                     {(this.props.activeRoute === 'poll' || this.props.activeRoute === 'login') &&
                         <span>
-                            <a className="header--menu linkto-polls" onClick={this.updateHash.bind(null, (this.props.activeRoute === 'all' || this.props.activeRoute === 'poll') ? 'polls' : 'all')}>
+                            <a className="header--menu linkto-polls" onClick={this.updateHash.bind(null, (this.props.activeRoute === 'all' || (this.props.activeRoute === 'poll' && this.props.loggedIn)) ? 'polls' : 'all')}>
                                 {this.props.loggedIn ? 'My Polls' : 'All Polls'}
                             </a>
                             <span>|</span>
