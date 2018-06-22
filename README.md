@@ -17,11 +17,11 @@ Objective: Build a full stack JavaScript app that allows you to manage and publi
   
   Screenshots:
   
-  ![alt text](https://s3.postimg.org/wfydx1s0j/cap1.jpg)
-  ![alt text](https://s24.postimg.org/bgtadwr5h/cap2.jpg)
+  ![](https://github.com/manu-4216/resources/blob/master/voting-app/cap1.JPG)
+  ![](https://github.com/manu-4216/resources/blob/master/voting-app/cap2.JPG)
   
-  ![alt text](https://s24.postimg.org/4p2vb225x/cap3.jpg)
-  ![alt text](https://s24.postimg.org/th2hiajcl/cap4.jpg)
+  ![](https://github.com/manu-4216/resources/blob/master/voting-app/cap3.JPG)
+  ![](https://github.com/manu-4216/resources/blob/master/voting-app/cap4.JPG)
   
-  ![alt text](https://s24.postimg.org/ewlengodx/cap5.jpg)
+  ![](https://github.com/manu-4216/resources/blob/master/voting-app/cap5.JPG)
 
