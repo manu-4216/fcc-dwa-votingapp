@@ -28,11 +28,11 @@ app.use('/', express.static(process.cwd() + '/'));
 app.use('/poll', express.static(process.cwd() + '/'));
 
 // Middleware for logging all the requests:
-function logger(req, res, next) {
-  console.log(req.method + ' : ' + req.originalUrl);
-  next();
-}
-app.use(logger);
+// function logger(req, res, next) {
+//   console.log(req.method + ' : ' + req.originalUrl);
+//   next();
+// }
+// app.use(logger);
 
 app.use(
   session({
