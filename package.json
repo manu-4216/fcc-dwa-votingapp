@@ -14,7 +14,7 @@
     "billboard.js": "^1.0.0",
     "body-parser": "^1.17.1",
     "dotenv": "^4.0.0",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "express-session": "^1.15.2",
     "moment": "^2.18.1",
     "mongoose": "^5.11.8",
